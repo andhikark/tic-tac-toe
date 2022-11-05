@@ -1,0 +1,13 @@
+.board-container {
+    display: grid;
+    width: 50vw;
+    height: 50vw;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+#board {
+    background-color: #404258;
+    border: 3px solid white;
+    cursor: pointer;
+}
