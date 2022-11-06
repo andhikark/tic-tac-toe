@@ -1,10 +1,3 @@
-/* WHAT TO DO
-1. create player factory, give their some name and mark for each.
-2. consider whose turn at each click on the board
-3. display each player's mark by using getMark()
-4. let each mark replace the blank in board array
-*/
-
 const Player = (name, mark) => {
     const getName = () => name;
     const getMark = () => mark;
@@ -12,23 +5,11 @@ const Player = (name, mark) => {
     return {getName, getMark}
 }
 
-const playerOne = Player('player 1', 'X')
-const playerTwo = Player('player 2', 'O')
+const playerOne = Player('player X', 'X');
+const playerTwo = Player('player O', 'O');
 
-const GameBoard = (() => {
-    let boardArr = [
-        '', '', '',
-        '', '', '',
-        '', '', ''
-    ];
-})();
-
-const flowControl = (() => {
-        if (playerOne) {
-            turn = playerOne
-        } else {
-            turn = playerTwo;
-        }
+const TurnControl = (() => {
+    turn = playerOne;
 
     const getTurn = () => turn;
 
@@ -37,18 +18,46 @@ const flowControl = (() => {
     }
 })()
 
-const DisplayControl = (() => {
+const GameAndDisplayControl = (() => {
     const pageBoard = document.querySelectorAll('#board');
+    const winnerMsgOne = document.querySelector('#winnerMsgOne');
+    const winnerMsgTwo = document.querySelector('#winnerMsgTwo');
 
-    pageBoard.forEach((board) => {
-        board.addEventListener('click', () => {
+    winnerMsgOne.textContent = playerOne.getName() + ' wins';
+    winnerMsgTwo.textContent = playerTwo.getName() + ' wins';
+
+    winnerMsgOne.style.display = 'none';
+    winnerMsgTwo.style.display = 'none';
+
+    for (let i = 0; i < pageBoard.length; i++) {
+        pageBoard[i].addEventListener('click', () => {
+            console.log(turn.getName())
             if (turn == playerOne) {
-                turn = playerTwo
-                board.innerHTML = playerOne.getMark()
+                turn = playerTwo;
+                pageBoard[i].innerHTML = playerOne.getMark();
             } else {
-                turn = playerOne
-                board.innerHTML = playerTwo.getMark()
+                turn = playerOne;
+                pageBoard[i].innerHTML = playerTwo.getMark();
+            }
+
+            if (pageBoard[0].innerHTML == 'X' && pageBoard[4].innerHTML == 'X' && pageBoard[8].innerHTML == 'X' || 
+            pageBoard[0].innerHTML == 'X' && pageBoard[1].innerHTML == 'X' && pageBoard[2].innerHTML == 'X' || 
+            pageBoard[3].innerHTML == 'X' && pageBoard[4].innerHTML == 'X' && pageBoard[5].innerHTML == 'X' || 
+            pageBoard[6].innerHTML == 'X' && pageBoard[7].innerHTML == 'X' && pageBoard[8].innerHTML == 'X' || 
+            pageBoard[0].innerHTML == 'X' && pageBoard[3].innerHTML == 'X' && pageBoard[6].innerHTML == 'X' || 
+            pageBoard[1].innerHTML == 'X' && pageBoard[4].innerHTML == 'X' && pageBoard[7].innerHTML == 'X' ||
+            pageBoard[2].innerHTML == 'X' && pageBoard[5].innerHTML == 'X' && pageBoard[8].innerHTML == 'X') {
+                winnerMsgOne.style.display = 'block';
+            } else if (pageBoard[0].innerHTML == 'O' && pageBoard[4].innerHTML == 'O' && pageBoard[8].innerHTML == 'O' || 
+            pageBoard[0].innerHTML == 'O' && pageBoard[1].innerHTML == 'O' && pageBoard[2].innerHTML == 'O' || 
+            pageBoard[3].innerHTML == 'O' && pageBoard[4].innerHTML == 'O' && pageBoard[5].innerHTML == 'O' || 
+            pageBoard[6].innerHTML == 'O' && pageBoard[7].innerHTML == 'O' && pageBoard[8].innerHTML == 'O' || 
+            pageBoard[0].innerHTML == 'O' && pageBoard[3].innerHTML == 'O' && pageBoard[6].innerHTML == 'O' || 
+            pageBoard[1].innerHTML == 'O' && pageBoard[4].innerHTML == 'O' && pageBoard[7].innerHTML == 'O' ||
+            pageBoard[2].innerHTML == 'O' && pageBoard[5].innerHTML == 'O' && pageBoard[8].innerHTML == 'O') {
+                winnerMsgTwo.style.display = 'block';
             }
         })
-    })
+    }
+
 })();
