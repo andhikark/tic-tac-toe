@@ -8,17 +8,7 @@ const Player = (name, mark) => {
 const playerOne = Player('player X', 'X');
 const playerTwo = Player('player O', 'O');
 
-const TurnControl = (() => {
-    turn = playerOne;
-
-    const getTurn = () => turn;
-
-    return {
-        getTurn
-    }
-})()
-
-const GameAndDisplayControl = (() => {
+const GameControl = (() => {
     const pageBoard = document.querySelectorAll('#board');
     const winnerMsgOne = document.querySelector('#winnerMsgOne');
     const winnerMsgTwo = document.querySelector('#winnerMsgTwo');
@@ -28,6 +18,8 @@ const GameAndDisplayControl = (() => {
 
     winnerMsgOne.style.display = 'none';
     winnerMsgTwo.style.display = 'none';
+
+    let turn = playerOne;
 
     for (let i = 0; i < pageBoard.length; i++) {
         pageBoard[i].addEventListener('click', () => {
