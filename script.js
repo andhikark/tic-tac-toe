@@ -12,12 +12,15 @@ const GameControl = (() => {
     const pageBoard = document.querySelectorAll('#board');
     const winnerMsgOne = document.querySelector('#winnerMsgOne');
     const winnerMsgTwo = document.querySelector('#winnerMsgTwo');
+    const tieMsg = document.querySelector('#tieMsg');
 
     winnerMsgOne.textContent = playerOne.getName() + ' wins';
     winnerMsgTwo.textContent = playerTwo.getName() + ' wins';
+    tieMsg.textContent = 'it\'s a tie!'
 
     winnerMsgOne.style.display = 'none';
     winnerMsgTwo.style.display = 'none';
+    tieMsg.style.display = 'none'
 
     let turn = playerOne;
 
@@ -25,14 +28,14 @@ const GameControl = (() => {
         pageBoard[i].addEventListener('click', () => {
             if (turn == playerOne) {
                 if (pageBoard[i].innerHTML == '') {
-                    pageBoard[i].innerHTML = playerOne.getMark()
+                    pageBoard[i].innerHTML = playerOne.getMark();
                     turn = playerTwo;
                 } else {
                     return;
                 }
             } else {
                 if (pageBoard[i].innerHTML == '') {
-                    pageBoard[i].innerHTML = playerTwo.getMark()
+                    pageBoard[i].innerHTML = playerTwo.getMark();
                     turn = playerOne;
                 } else {
                     return;
@@ -57,8 +60,11 @@ const GameControl = (() => {
             pageBoard[2].innerHTML == 'O' && pageBoard[5].innerHTML == 'O' && pageBoard[8].innerHTML == 'O' ||
             pageBoard[2].innerHTML == 'O' && pageBoard[4].innerHTML == 'O' && pageBoard[6].innerHTML == 'O') {
                 winnerMsgTwo.style.display = 'block';
+            } else if (pageBoard[0].innerHTML !== '' && pageBoard[1].innerHTML !== '' && pageBoard[2].innerHTML !== '' && 
+            pageBoard[3].innerHTML !== ''&& pageBoard[4].innerHTML !== '' && pageBoard[5].innerHTML !== '' && 
+            pageBoard[6].innerHTML !== '' && pageBoard[7].innerHTML !== '' && pageBoard[8].innerHTML !== '') {
+                tieMsg.style.display = 'block'
             }
         })
     }
-
 })();
