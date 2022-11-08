@@ -1,70 +1,63 @@
-const Player = (name, mark) => {
-    const getName = () => name;
-    const getMark = () => mark;
+const Player = (playerName, playerMark) => {
+    const getPlayerName = () => playerName;
+    const getPlayerMark = () => playerMark;
 
-    return {getName, getMark}
+    return {
+        getPlayerName,
+        getPlayerMark
+    }
 }
 
-const playerOne = Player('player X', 'X');
-const playerTwo = Player('player O', 'O');
+const GameBoard = (() => {
+    let boardArr = ['', '', '', '', '', '', '', '', '']
+
+    const markArr = () => {
+        
+    }
+
+    const getboardArr = () => boardArr;
+
+    return {
+        getboardArr
+    }
+})
 
 const GameControl = (() => {
-    const pageBoard = document.querySelectorAll('#board');
-    const winnerMsgOne = document.querySelector('#winnerMsgOne');
-    const winnerMsgTwo = document.querySelector('#winnerMsgTwo');
-    const tieMsg = document.querySelector('#tieMsg');
+    const playerXname = document.querySelector('.player-x');
+    const playerOname = document.querySelector('.player-o');
 
-    winnerMsgOne.textContent = playerOne.getName() + ' wins';
-    winnerMsgTwo.textContent = playerTwo.getName() + ' wins';
-    tieMsg.textContent = 'it\'s a tie!'
+    const playerX = Player(playerXname.value, 'X')
+    const playerO = Player(playerOname.value, 'O')
 
-    winnerMsgOne.style.display = 'none';
-    winnerMsgTwo.style.display = 'none';
-    tieMsg.style.display = 'none'
-
-    let turn = playerOne;
-
-    for (let i = 0; i < pageBoard.length; i++) {
-        pageBoard[i].addEventListener('click', () => {
-            if (turn == playerOne) {
-                if (pageBoard[i].innerHTML == '') {
-                    pageBoard[i].innerHTML = playerOne.getMark();
-                    turn = playerTwo;
-                } else {
-                    return;
-                }
-            } else {
-                if (pageBoard[i].innerHTML == '') {
-                    pageBoard[i].innerHTML = playerTwo.getMark();
-                    turn = playerOne;
-                } else {
-                    return;
-                }
-            }
-            
-            if (pageBoard[0].innerHTML == 'X' && pageBoard[4].innerHTML == 'X' && pageBoard[8].innerHTML == 'X' || 
-            pageBoard[0].innerHTML == 'X' && pageBoard[1].innerHTML == 'X' && pageBoard[2].innerHTML == 'X' || 
-            pageBoard[3].innerHTML == 'X' && pageBoard[4].innerHTML == 'X' && pageBoard[5].innerHTML == 'X' || 
-            pageBoard[6].innerHTML == 'X' && pageBoard[7].innerHTML == 'X' && pageBoard[8].innerHTML == 'X' || 
-            pageBoard[0].innerHTML == 'X' && pageBoard[3].innerHTML == 'X' && pageBoard[6].innerHTML == 'X' || 
-            pageBoard[1].innerHTML == 'X' && pageBoard[4].innerHTML == 'X' && pageBoard[7].innerHTML == 'X' ||
-            pageBoard[2].innerHTML == 'X' && pageBoard[5].innerHTML == 'X' && pageBoard[8].innerHTML == 'X' ||
-            pageBoard[2].innerHTML == 'X' && pageBoard[4].innerHTML == 'X' && pageBoard[6].innerHTML == 'X') {
-                winnerMsgOne.style.display = 'block';
-            } else if (pageBoard[0].innerHTML == 'O' && pageBoard[4].innerHTML == 'O' && pageBoard[8].innerHTML == 'O' || 
-            pageBoard[0].innerHTML == 'O' && pageBoard[1].innerHTML == 'O' && pageBoard[2].innerHTML == 'O' || 
-            pageBoard[3].innerHTML == 'O' && pageBoard[4].innerHTML == 'O' && pageBoard[5].innerHTML == 'O' || 
-            pageBoard[6].innerHTML == 'O' && pageBoard[7].innerHTML == 'O' && pageBoard[8].innerHTML == 'O' || 
-            pageBoard[0].innerHTML == 'O' && pageBoard[3].innerHTML == 'O' && pageBoard[6].innerHTML == 'O' || 
-            pageBoard[1].innerHTML == 'O' && pageBoard[4].innerHTML == 'O' && pageBoard[7].innerHTML == 'O' ||
-            pageBoard[2].innerHTML == 'O' && pageBoard[5].innerHTML == 'O' && pageBoard[8].innerHTML == 'O' ||
-            pageBoard[2].innerHTML == 'O' && pageBoard[4].innerHTML == 'O' && pageBoard[6].innerHTML == 'O') {
-                winnerMsgTwo.style.display = 'block';
-            } else if (pageBoard[0].innerHTML !== '' && pageBoard[1].innerHTML !== '' && pageBoard[2].innerHTML !== '' && 
-            pageBoard[3].innerHTML !== ''&& pageBoard[4].innerHTML !== '' && pageBoard[5].innerHTML !== '' && 
-            pageBoard[6].innerHTML !== '' && pageBoard[7].innerHTML !== '' && pageBoard[8].innerHTML !== '') {
-                tieMsg.style.display = 'block'
-            }
-        })
+    const checkWinner = (pageBoard) => {
+        if (pageBoard[0] == 'X' && pageBoard[4] == 'X' && pageBoard[8] == 'X' || 
+        pageBoard[0] == 'X' && pageBoard[1] == 'X' && pageBoard[2] == 'X' || 
+        pageBoard[3] == 'X' && pageBoard[4] == 'X' && pageBoard[5] == 'X' || 
+        pageBoard[6] == 'X' && pageBoard[7] == 'X' && pageBoard[8] == 'X' || 
+        pageBoard[0] == 'X' && pageBoard[3] == 'X' && pageBoard[6] == 'X' || 
+        pageBoard[1] == 'X' && pageBoard[4] == 'X' && pageBoard[7] == 'X' ||
+        pageBoard[2] == 'X' && pageBoard[5] == 'X' && pageBoard[8] == 'X' ||
+        pageBoard[2] == 'X' && pageBoard[4] == 'X' && pageBoard[6] == 'X') {
+            winnerMsgOne.style.display = 'block';
+        } else if (pageBoard[0] == 'O' && pageBoard[4] == 'O' && pageBoard[8] == 'O' || 
+        pageBoard[0] == 'O' && pageBoard[1] == 'O' && pageBoard[2] == 'O' || 
+        pageBoard[3] == 'O' && pageBoard[4] == 'O' && pageBoard[5] == 'O' || 
+        pageBoard[6] == 'O' && pageBoard[7] == 'O' && pageBoard[8] == 'O' || 
+        pageBoard[0] == 'O' && pageBoard[3] == 'O' && pageBoard[6] == 'O' || 
+        pageBoard[1] == 'O' && pageBoard[4] == 'O' && pageBoard[7] == 'O' ||
+        pageBoard[2] == 'O' && pageBoard[5] == 'O' && pageBoard[8] == 'O' ||
+        pageBoard[2] == 'O' && pageBoard[4] == 'O' && pageBoard[6] == 'O') {
+            winnerMsgTwo.style.display = 'block';
+        } else if (!pageBoard.includes('')){
+            tieMsg.style.display = 'block'
+        }
     }
-})();
+
+    return {
+        checkWinner
+    }
+})
+
+const displayControl = () => {
+
+}
