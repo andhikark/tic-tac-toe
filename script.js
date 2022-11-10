@@ -34,6 +34,7 @@ const GameControl = (() => {
     function checkNameForm() {
         if (playerXname.value !== '' && playerOname.value !== '') {
             turnInfo.textContent = playerXname.value + '\'s turn'
+            gameFlow()
         } else {
             return;
         }
@@ -44,24 +45,28 @@ const GameControl = (() => {
         checkNameForm()
     })
 
-    for (let i = 0; i < pageBoard.length; i++) {
-        pageBoard[i].addEventListener('click', () => {
-            if (turn == playerX) {
-                if (pageBoard[i].innerHTML == '') {
-                    pageBoard[i].innerHTML = playerX.getPlayerMark();
-                    turn = playerO;
+    function gameFlow() {
+        for (let i = 0; i < pageBoard.length; i++) {
+            pageBoard[i].addEventListener('click', () => {
+                if (turn == playerX) {
+                    if (pageBoard[i].innerHTML == '') {
+                        pageBoard[i].innerHTML = playerX.getPlayerMark();
+                        turnInfo.textContent = playerOname.value + '\'s turn'
+                        turn = playerO;
+                    } else {
+                        return;
+                    }
                 } else {
-                    return;
+                    if (pageBoard[i].innerHTML == '') {
+                        pageBoard[i].innerHTML = playerO.getPlayerMark();
+                        turnInfo.textContent = playerXname.value + '\'s turn'
+                        turn = playerX;
+                    } else {
+                        return;
+                    }
                 }
-            } else {
-                if (pageBoard[i].innerHTML == '') {
-                    pageBoard[i].innerHTML = playerO.getPlayerMark();
-                    turn = playerX;
-                } else {
-                    return;
-                }
-            }
-        })
+            })
+        }
     }
 
     const checkWinner = (pageBoard) => {
