@@ -5,8 +5,8 @@ const Player = (name, mark) => {
     return {getName, getMark}
 }
 
-const playerOne = Player('player X', 'X');
-const playerTwo = Player('player O', 'O');
+const playerX = Player('player X', 'X');
+const playerO = Player('player O', 'O');
 const pageBoard = document.querySelectorAll('#board');
 const botBtn = document.querySelector('#bot')
 
@@ -15,29 +15,29 @@ const GameControl = (() => {
     const winnerMsgTwo = document.querySelector('#winnerMsgTwo');
     const tieMsg = document.querySelector('#tieMsg');
 
-    winnerMsgOne.textContent = playerOne.getName() + ' wins';
-    winnerMsgTwo.textContent = playerTwo.getName() + ' wins';
+    winnerMsgOne.textContent = playerX.getName() + ' wins';
+    winnerMsgTwo.textContent = playerO.getName() + ' wins';
     tieMsg.textContent = 'it\'s a tie!'
 
     winnerMsgOne.style.display = 'none';
     winnerMsgTwo.style.display = 'none';
     tieMsg.style.display = 'none'
 
-    let turn = playerOne;
+    let turn = playerX;
 
     for (let i = 0; i < pageBoard.length; i++) {
         pageBoard[i].addEventListener('click', () => {
-            if (turn == playerOne) {
+            if (turn == playerX) {
                 if (pageBoard[i].innerHTML == '') {
-                    pageBoard[i].innerHTML = playerOne.getMark();
-                    turn = playerTwo;
+                    pageBoard[i].innerHTML = playerX.getMark();
+                    turn = playerO;
                 } else {
                     return;
                 }
             } else {
                 if (pageBoard[i].innerHTML == '') {
-                    pageBoard[i].innerHTML = playerTwo.getMark();
-                    turn = playerOne;
+                    pageBoard[i].innerHTML = playerO.getMark();
+                    turn = playerX;
                 } else {
                     return;
                 }

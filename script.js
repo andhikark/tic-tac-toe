@@ -1,4 +1,5 @@
 const Player = (playerName, playerMark) => {
+
     const getPlayerName = () => playerName;
     const getPlayerMark = () => playerMark;
 
@@ -11,10 +12,6 @@ const Player = (playerName, playerMark) => {
 const GameBoard = (() => {
     let boardArr = ['', '', '', '', '', '', '', '', '']
 
-    const markArr = () => {
-        
-    }
-
     const getboardArr = () => boardArr;
 
     return {
@@ -23,11 +20,49 @@ const GameBoard = (() => {
 })
 
 const GameControl = (() => {
-    const playerXname = document.querySelector('.player-x');
-    const playerOname = document.querySelector('.player-o');
+    const pageBoard = document.querySelectorAll('#board')
+    const playerXname = document.querySelector('#playerx');
+    const playerOname = document.querySelector('#playero');
+    const turnInfo = document.querySelector('.turnInfo');
+    const playBtn = document.querySelector('#playBtn')
 
     const playerX = Player(playerXname.value, 'X')
     const playerO = Player(playerOname.value, 'O')
+
+    let turn = playerX;
+
+    function checkNameForm() {
+        if (playerXname.value !== '' && playerOname.value !== '') {
+            turnInfo.textContent = playerXname.value + '\'s turn'
+        } else {
+            return;
+        }
+    }
+
+    playBtn.addEventListener('click', () => {
+        turnInfo.style.display = 'block'
+        checkNameForm()
+    })
+
+    for (let i = 0; i < pageBoard.length; i++) {
+        pageBoard[i].addEventListener('click', () => {
+            if (turn == playerX) {
+                if (pageBoard[i].innerHTML == '') {
+                    pageBoard[i].innerHTML = playerX.getPlayerMark();
+                    turn = playerO;
+                } else {
+                    return;
+                }
+            } else {
+                if (pageBoard[i].innerHTML == '') {
+                    pageBoard[i].innerHTML = playerO.getPlayerMark();
+                    turn = playerX;
+                } else {
+                    return;
+                }
+            }
+        })
+    }
 
     const checkWinner = (pageBoard) => {
         if (pageBoard[0] == 'X' && pageBoard[4] == 'X' && pageBoard[8] == 'X' || 
@@ -56,8 +91,4 @@ const GameControl = (() => {
     return {
         checkWinner
     }
-})
-
-const displayControl = () => {
-
-}
+})()
