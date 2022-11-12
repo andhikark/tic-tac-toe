@@ -36,6 +36,20 @@ const GameControl = (() => {
 
     let turn = playerX;
 
+    function checkNameForm() {
+        if (playerXname.value !== '' && playerOname.value !== '') {
+            turnInfo.textContent = playerXname.value + '\'s turn'
+            DisplayControl.startGame()
+        } else {
+            return;
+        }
+    }
+
+    playBtn.addEventListener('click', () => {
+        turnInfo.style.display = 'block'
+        checkNameForm()
+    })
+
     const gameFlow = (idx) => {
         if (turn == playerX) {
             GameBoard.putMark(idx, playerX.getPlayerMark())
@@ -83,13 +97,16 @@ const DisplayControl = (() => {
         pageBoard[idx].innerHTML = mark
     }
 
-    for (let i = 0; i < pageBoard.length; i++) {
-        pageBoard[i].addEventListener('click', () => {
-            GameControl.gameFlow(i)
-        })
+    const startGame = () => {
+        for (let i = 0; i < pageBoard.length; i++) {
+            pageBoard[i].addEventListener('click', () => {
+                GameControl.gameFlow(i)
+            })
+        }
     }
 
     return {
         displayMark,
+        startGame
     }
 })();
