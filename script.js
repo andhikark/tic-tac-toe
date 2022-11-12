@@ -12,7 +12,7 @@ const Player = (playerName, playerMark) => {
 const GameBoard = (() => {
     let boardArr = ['', '', '', '', '', '', '', '', '']
 
-    const getboardArr = () => boardArr[i];
+    const getboardArr = () => boardArr;
 
     const putMark = (idx, mark) => {
         boardArr[idx] = mark
@@ -29,10 +29,14 @@ const GameControl = (() => {
     const playerXname = document.querySelector('#playerx');
     const playerOname = document.querySelector('#playero');
     const turnInfo = document.querySelector('.turnInfo');
-    const playBtn = document.querySelector('#playBtn')
+    const playBtn = document.querySelector('#playBtn');
 
-    const playerX = Player(playerXname.value, 'X')
-    const playerO = Player(playerOname.value, 'O')
+    const winnerMsgOne = document.querySelector('#winnerMsgOne');
+    const winnerMsgTwo = document.querySelector('#winnerMsgTwo');
+    const tieMsg = document.querySelector('#tieMsg');
+
+    const playerX = Player(playerXname.value, 'X');
+    const playerO = Player(playerOname.value, 'O');
 
     let turn = playerX;
 
@@ -54,11 +58,13 @@ const GameControl = (() => {
         if (turn == playerX) {
             GameBoard.putMark(idx, playerX.getPlayerMark())
             turn = playerO
+            turnInfo.textContent = playerOname.value + '\'s turn'
         } else if (turn == playerO) {
             GameBoard.putMark(idx, playerO.getPlayerMark())
+            turn = playerX
+            turnInfo.textContent = playerXname.value + '\'s turn'
         }
     }
-
 
     const checkWinner = (boardArr) => {
         if (boardArr[0] == 'X' && boardArr[4] == 'X' && boardArr[8] == 'X' || 
@@ -69,7 +75,7 @@ const GameControl = (() => {
         boardArr[1] == 'X' && boardArr[4] == 'X' && boardArr[7] == 'X' ||
         boardArr[2] == 'X' && boardArr[5] == 'X' && boardArr[8] == 'X' ||
         boardArr[2] == 'X' && boardArr[4] == 'X' && boardArr[6] == 'X') {
-            winnerMsgOne.style.display = 'block';
+            winnerMsgOne.textContent = playerXname.value + ' wins!';
         } else if (boardArr[0] == 'O' && boardArr[4] == 'O' && boardArr[8] == 'O' || 
         boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'O' || 
         boardArr[3] == 'O' && boardArr[4] == 'O' && boardArr[5] == 'O' || 
@@ -78,9 +84,9 @@ const GameControl = (() => {
         boardArr[1] == 'O' && boardArr[4] == 'O' && boardArr[7] == 'O' ||
         boardArr[2] == 'O' && boardArr[5] == 'O' && boardArr[8] == 'O' ||
         boardArr[2] == 'O' && boardArr[4] == 'O' && boardArr[6] == 'O') {
-            winnerMsgTwo.style.display = 'block';
+            winnerMsgTwo.textContent = playerOname.value + ' wins!';
         } else if (!boardArr.includes('')){
-            tieMsg.style.display = 'block'
+            tieMsg.textContent = 'it\'s a tie!';
         }
     }
 
@@ -91,16 +97,18 @@ const GameControl = (() => {
 })()
 
 const DisplayControl = (() => {
-    const pageBoard = document.querySelectorAll('#board')
+    const boardArr = document.querySelectorAll('#board')
 
     const displayMark = (idx, mark) => {
-        pageBoard[idx].innerHTML = mark
+        boardArr[idx].innerHTML = mark
     }
 
     const startGame = () => {
-        for (let i = 0; i < pageBoard.length; i++) {
-            pageBoard[i].addEventListener('click', () => {
+        for (let i = 0; i < boardArr.length; i++) {
+            boardArr[i].addEventListener('click', () => {
                 GameControl.gameFlow(i)
+                GameControl.checkWinner(GameBoard.getboardArr())
+                console.log(GameBoard.getboardArr())
             })
         }
     }
