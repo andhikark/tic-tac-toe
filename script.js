@@ -12,15 +12,20 @@ const Player = (playerName, playerMark) => {
 const GameBoard = (() => {
     let boardArr = ['', '', '', '', '', '', '', '', '']
 
-    const getboardArr = () => boardArr;
+    const getboardArr = () => boardArr[i];
+
+    const putMark = (idx, mark) => {
+        boardArr[idx] = mark
+        DisplayControl.displayMark(idx, mark)
+    }
 
     return {
-        getboardArr
+        getboardArr,
+        putMark
     }
-})
+})();
 
 const GameControl = (() => {
-    const pageBoard = document.querySelectorAll('#board')
     const playerXname = document.querySelector('#playerx');
     const playerOname = document.querySelector('#playero');
     const turnInfo = document.querySelector('.turnInfo');
@@ -31,69 +36,60 @@ const GameControl = (() => {
 
     let turn = playerX;
 
-    function checkNameForm() {
-        if (playerXname.value !== '' && playerOname.value !== '') {
-            turnInfo.textContent = playerXname.value + '\'s turn'
-            gameFlow()
-        } else {
-            return;
+    const gameFlow = (idx) => {
+        if (turn == playerX) {
+            GameBoard.putMark(idx, playerX.getPlayerMark())
+            turn = playerO
+        } else if (turn == playerO) {
+            GameBoard.putMark(idx, playerO.getPlayerMark())
         }
     }
 
-    playBtn.addEventListener('click', () => {
-        turnInfo.style.display = 'block'
-        checkNameForm()
-    })
 
-    function gameFlow() {
-        for (let i = 0; i < pageBoard.length; i++) {
-            pageBoard[i].addEventListener('click', () => {
-                if (turn == playerX) {
-                    if (pageBoard[i].innerHTML == '') {
-                        pageBoard[i].innerHTML = playerX.getPlayerMark();
-                        turnInfo.textContent = playerOname.value + '\'s turn'
-                        turn = playerO;
-                    } else {
-                        return;
-                    }
-                } else {
-                    if (pageBoard[i].innerHTML == '') {
-                        pageBoard[i].innerHTML = playerO.getPlayerMark();
-                        turnInfo.textContent = playerXname.value + '\'s turn'
-                        turn = playerX;
-                    } else {
-                        return;
-                    }
-                }
-            })
-        }
-    }
-
-    const checkWinner = (pageBoard) => {
-        if (pageBoard[0] == 'X' && pageBoard[4] == 'X' && pageBoard[8] == 'X' || 
-        pageBoard[0] == 'X' && pageBoard[1] == 'X' && pageBoard[2] == 'X' || 
-        pageBoard[3] == 'X' && pageBoard[4] == 'X' && pageBoard[5] == 'X' || 
-        pageBoard[6] == 'X' && pageBoard[7] == 'X' && pageBoard[8] == 'X' || 
-        pageBoard[0] == 'X' && pageBoard[3] == 'X' && pageBoard[6] == 'X' || 
-        pageBoard[1] == 'X' && pageBoard[4] == 'X' && pageBoard[7] == 'X' ||
-        pageBoard[2] == 'X' && pageBoard[5] == 'X' && pageBoard[8] == 'X' ||
-        pageBoard[2] == 'X' && pageBoard[4] == 'X' && pageBoard[6] == 'X') {
+    const checkWinner = (boardArr) => {
+        if (boardArr[0] == 'X' && boardArr[4] == 'X' && boardArr[8] == 'X' || 
+        boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' || 
+        boardArr[3] == 'X' && boardArr[4] == 'X' && boardArr[5] == 'X' || 
+        boardArr[6] == 'X' && boardArr[7] == 'X' && boardArr[8] == 'X' || 
+        boardArr[0] == 'X' && boardArr[3] == 'X' && boardArr[6] == 'X' || 
+        boardArr[1] == 'X' && boardArr[4] == 'X' && boardArr[7] == 'X' ||
+        boardArr[2] == 'X' && boardArr[5] == 'X' && boardArr[8] == 'X' ||
+        boardArr[2] == 'X' && boardArr[4] == 'X' && boardArr[6] == 'X') {
             winnerMsgOne.style.display = 'block';
-        } else if (pageBoard[0] == 'O' && pageBoard[4] == 'O' && pageBoard[8] == 'O' || 
-        pageBoard[0] == 'O' && pageBoard[1] == 'O' && pageBoard[2] == 'O' || 
-        pageBoard[3] == 'O' && pageBoard[4] == 'O' && pageBoard[5] == 'O' || 
-        pageBoard[6] == 'O' && pageBoard[7] == 'O' && pageBoard[8] == 'O' || 
-        pageBoard[0] == 'O' && pageBoard[3] == 'O' && pageBoard[6] == 'O' || 
-        pageBoard[1] == 'O' && pageBoard[4] == 'O' && pageBoard[7] == 'O' ||
-        pageBoard[2] == 'O' && pageBoard[5] == 'O' && pageBoard[8] == 'O' ||
-        pageBoard[2] == 'O' && pageBoard[4] == 'O' && pageBoard[6] == 'O') {
+        } else if (boardArr[0] == 'O' && boardArr[4] == 'O' && boardArr[8] == 'O' || 
+        boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'O' || 
+        boardArr[3] == 'O' && boardArr[4] == 'O' && boardArr[5] == 'O' || 
+        boardArr[6] == 'O' && boardArr[7] == 'O' && boardArr[8] == 'O' || 
+        boardArr[0] == 'O' && boardArr[3] == 'O' && boardArr[6] == 'O' || 
+        boardArr[1] == 'O' && boardArr[4] == 'O' && boardArr[7] == 'O' ||
+        boardArr[2] == 'O' && boardArr[5] == 'O' && boardArr[8] == 'O' ||
+        boardArr[2] == 'O' && boardArr[4] == 'O' && boardArr[6] == 'O') {
             winnerMsgTwo.style.display = 'block';
-        } else if (!pageBoard.includes('')){
+        } else if (!boardArr.includes('')){
             tieMsg.style.display = 'block'
         }
     }
 
     return {
+        gameFlow,
         checkWinner
     }
 })()
+
+const DisplayControl = (() => {
+    const pageBoard = document.querySelectorAll('#board')
+
+    const displayMark = (idx, mark) => {
+        pageBoard[idx].innerHTML = mark
+    }
+
+    for (let i = 0; i < pageBoard.length; i++) {
+        pageBoard[i].addEventListener('click', () => {
+            GameControl.gameFlow(i)
+        })
+    }
+
+    return {
+        displayMark,
+    }
+})();
