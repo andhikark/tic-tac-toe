@@ -8,6 +8,11 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
+    <video autoplay muted loop id="backVid">
+        <source src="background/forest-background.mp4" type="">
+    </video>
+
+    <div class="board-wrapper">
     <main class="board-container">
         <div id="board"></div>
         <div id="board"></div>
@@ -19,14 +24,20 @@
         <div id="board"></div>
         <div id="board"></div>
     </main>
+    </div>
 
     <!-- Name Form -->
-    <input type="text" id="playerx" placeholder="Player X">
-    <input type="text" id="playero" placeholder="Player O">
-    <button id="playBtn">play</button>
+    <div class="form-popup">
+        <input type="text" id="playerx" placeholder="Player X">
+        <input type="text" id="playero" placeholder="Player O">
+        <button id="playBtn">play</button>
+    </div>
 
     <p class="turnInfo"></p>
-    <div id="winnerMsg"></div>
+    <div class="winner-popup">
+    <p id="winnerMsg"></p>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

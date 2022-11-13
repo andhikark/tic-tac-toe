@@ -1,9 +1,24 @@
 .board-container {
     display: grid;
-    width: 50vw;
-    height: 50vw;
+    width: 400px;
+    height: 400px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    position: relative;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.board-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
 }
 
 #board {
@@ -16,4 +31,28 @@
     justify-content: center;
     align-items: center;
     color: white;
+}
+
+#backVid {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+
+
+.form-popup {
+    position: relative;
+    width: 400px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    #backVid {
+        width: 100%;
+        height: auto;
+    }
 }

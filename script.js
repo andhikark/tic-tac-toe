@@ -115,7 +115,6 @@ const DisplayControl = (() => {
                     if (boardArr[i].innerHTML == '') {
                         GameControl.gameFlow(i);
                         GameControl.checkWinner(GameBoard.getboardArr());
-                        console.log(GameBoard.getboardArr());
                     } else {
                         return;
                     }
@@ -131,3 +130,4 @@ const DisplayControl = (() => {
         startGame
     }
 })();
+
