@@ -26,9 +26,23 @@ const GameBoard = (() => {
         }
     }
 
+    const resetArr = () => {
+        boardArr = [
+            "", "", "",
+            "", "", "", 
+            "", "", ""];
+    }
+
+    const resetMark = (idx) => {
+        boardArr[idx] = ''
+        DisplayControl.displayMark(idx, '');
+    }
+
     return {
         getboardArr,
-        putMark
+        putMark,
+        resetArr,
+        resetMark
     }
 })();
 
@@ -37,7 +51,6 @@ const GameControl = (() => {
     const playerOname = document.querySelector('#playero');
     const turnInfo = document.querySelector('.turnInfo');
     const playBtn = document.querySelector('#playBtn');
-
     const winnerMsg = document.querySelector('#winnerMsg');
 
     const playerX = Player(playerXname.value, 'X');
@@ -103,6 +116,7 @@ const GameControl = (() => {
 
 const DisplayControl = (() => {
     const boardArr = document.querySelectorAll('#board');
+    const resetBtn = document.querySelector('#reset-board');
 
     const displayMark = (idx, mark) => {
         boardArr[idx].innerHTML = mark;
@@ -125,9 +139,16 @@ const DisplayControl = (() => {
         }
     }
 
+    resetBtn.addEventListener('click', () => {
+        GameBoard.resetArr()
+        for (let i = 0; i < boardArr.length; i++) {
+            GameBoard.resetMark(i)
+        }
+    })
+
     return {
         displayMark,
-        startGame
+        startGame,
     }
 })();
 
