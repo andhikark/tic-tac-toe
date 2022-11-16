@@ -10,16 +10,17 @@ const Player = (playerName, playerMark) => {
 }
 
 const GameBoard = (() => {
-    let boardArr = [
-        "", "", "",
-        "", "", "", 
-        "", "", ""];
+    let board3x3Arr = Array(9).fill('');
+    let board5x5Arr = Array(25).fill('');
+    let board7x7Arr = Array(49).fill('');
 
-    const getboardArr = () => boardArr;
+    const getboard3x3Arr = () => board3x3Arr;
+    const getboard5x5Arr = () => board5x5Arr;
+    const getboard7x7Arr = () => board7x7Arr;
 
     const putMark = (idx, mark) => {
-        if (boardArr[idx] == '') {
-            boardArr[idx] = mark;
+        if (board3x3Arr[idx] == '') {
+            board3x3Arr[idx] = mark;
             DisplayControl.displayMark(idx, mark);
         } else {
             return;
@@ -27,19 +28,20 @@ const GameBoard = (() => {
     }
 
     const resetArr = () => {
-        boardArr = [
-            "", "", "",
-            "", "", "", 
-            "", "", ""];
+        let board3x3Arr = Array(9).fill('');
+        let board5x5Arr = Array(25).fill('');
+        let board7x7Arr = Array(49).fill('');
     }
 
     const resetMark = (idx) => {
-        boardArr[idx] = ''
+        board3x3Arr[idx] = ''
         DisplayControl.displayMark(idx, '');
     }
 
     return {
-        getboardArr,
+        getboard3x3Arr,
+        getboard5x5Arr,
+        getboard7x7Arr,
         putMark,
         resetArr,
         resetMark
@@ -129,7 +131,17 @@ const DisplayControl = (() => {
     const gamepage = document.querySelector('.gamepage-wrapper');
     const homepage = document.querySelector('.homepage-wrapper')
     const playerForm = document.querySelector('.form-wrapper');
+    const play3 = document.querySelector('#play3');
+    const play5 = document.querySelector('#play5');
     const play7 = document.querySelector('#play7');
+
+    play3.addEventListener('click', () => {
+        playerForm.style.display = 'block'
+    })
+
+    play5.addEventListener('click', () => {
+        playerForm.style.display = 'block'
+    })
 
     play7.addEventListener('click', () => {
         playerForm.style.display = 'block'
