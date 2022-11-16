@@ -28,9 +28,7 @@ const GameBoard = (() => {
     }
 
     const resetArr = () => {
-        let board3x3Arr = Array(9).fill('');
-        let board5x5Arr = Array(25).fill('');
-        let board7x7Arr = Array(49).fill('');
+        board3x3Arr = Array(9).fill('')
     }
 
     const resetMark = (idx) => {
@@ -112,8 +110,8 @@ const GameControl = (() => {
     }
 
     resetBtn.addEventListener('click', () => {
-        GameBoard.resetArr()
-        for (let i = 0; i < boardArr.length; i++) {
+        GameBoard.resetArr(GameBoard.getboard3x3Arr())
+        for (let i = 0; i < (GameBoard.getboard3x3Arr()).length; i++) {
             GameBoard.resetMark(i)
         }
         turn = playerX
@@ -160,10 +158,11 @@ const DisplayControl = (() => {
                 if (winnerMsg.textContent == '') {
                     if (boardArr[i].innerHTML == '') {
                         GameControl.gameFlow(i);
-                        GameControl.checkWinner(GameBoard.getboardArr());
+                        GameControl.checkWinner(GameBoard.getboard3x3Arr());
                     } else {
                         return;
                     }
+                    console.log(GameBoard.getboard3x3Arr())
                 } else {
                     return;
                 }
