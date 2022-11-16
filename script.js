@@ -85,7 +85,7 @@ const GameControl = (() => {
         }
     }
 
-    const checkWinner = (boardArr) => {
+    const checkWinner3x3 = (boardArr) => {
         if (boardArr[0] == 'X' && boardArr[4] == 'X' && boardArr[8] == 'X' || 
         boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' || 
         boardArr[3] == 'X' && boardArr[4] == 'X' && boardArr[5] == 'X' || 
@@ -120,12 +120,12 @@ const GameControl = (() => {
 
     return {
         gameFlow,
-        checkWinner
+        checkWinner3x3
     }
 })()
 
 const DisplayControl = (() => {
-    const boardArr = document.querySelectorAll('#board');
+    const boardContainer = document.querySelector('.board-container')
     const gamepage = document.querySelector('.gamepage-wrapper');
     const homepage = document.querySelector('.homepage-wrapper')
     const playerForm = document.querySelector('.form-wrapper');
@@ -133,34 +133,76 @@ const DisplayControl = (() => {
     const play5 = document.querySelector('#play5');
     const play7 = document.querySelector('#play7');
 
+    let playMode = '';
+    const getPlayMode = () => playMode;
+
     play3.addEventListener('click', () => {
-        playerForm.style.display = 'block'
+        playerForm.style.display = 'block';
+        playMode = '3x3';
+        adjustBoard()
     })
 
     play5.addEventListener('click', () => {
-        playerForm.style.display = 'block'
+        playerForm.style.display = 'block';
+        playMode = '5x5';
+        adjustBoard()
     })
 
     play7.addEventListener('click', () => {
         playerForm.style.display = 'block'
+        playMode = '7x7'
+        adjustBoard()
     })
 
     const displayMark = (idx, mark) => {
         boardArr[idx].innerHTML = mark;
     }
 
+    const createBoard = () => {
+        const board = document.createElement('div');
+        board.classList.add('board')
+        boardContainer.appendChild(board)
+    }
+
+    const adjustBoard = () => {
+        if (playMode = '3x3') {
+            for (let i = 0; i < 9; i++) {
+                createBoard()
+            }
+            boardContainer.style.setProperty("grid-template-rows", 'repeat(3, 1fr)');
+            boardContainer.style.setProperty("grid-template-columns", 'repeat(3, 1fr)');
+        } else if (playMode = '5x5') {
+            for (let i = 0; i < 25; i++) {
+                createBoard()
+            }
+            boardContainer.style.setProperty("grid-template-rows", 'repeat(5, 1fr)');
+            boardContainer.style.setProperty("grid-template-columns", 'repeat(5, 1fr)');
+        } else if (playMode = '7x7') {
+            for (let i = 0; i < 49; i++) {
+                createBoard()
+            }
+            boardContainer.style.setProperty("grid-template-rows", 'repeat(7, 1fr)');
+            boardContainer.style.setProperty("grid-template-columns", 'repeat(7, 1fr)');
+        }
+    }
+
+    const boardArr = document.getElementsByClassName('board')
+
     const startGame = () => {
-        homepage.style.display = 'none'
+        homepage.style.display = 'none';
         playerForm.style.display = 'none';
-        gamepage.style.display = 'block'
+        gamepage.style.display = 'block';
+        createBoard();
         for (let i = 0; i < boardArr.length; i++) {
             boardArr[i].addEventListener('click', () => {
                 if (winnerMsg.textContent == '') {
-                    if (boardArr[i].innerHTML == '') {
+                    if (boardArr[i].innerHTML == '' && playMode == '3x3') {
                         GameControl.gameFlow(i);
-                        GameControl.checkWinner(GameBoard.getboard3x3Arr());
+                        GameControl.checkWinner3x3(GameBoard.getboard3x3Arr());
+                    } else if (boardArr[i].innerHTML == '' && playMode == '3x3') {
+                        
                     } else {
-                        return;
+                        return
                     }
                     console.log(GameBoard.getboard3x3Arr())
                 } else {
@@ -173,6 +215,10 @@ const DisplayControl = (() => {
     return {
         displayMark,
         startGame,
+        getPlayMode
     }
 })();
+
+//todo for tomorrow
+/* 1. logic for checking the winner on 5x5 and 7x7 gameplay */
 
