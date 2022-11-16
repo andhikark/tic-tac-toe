@@ -52,23 +52,24 @@ const GameControl = (() => {
     const turnInfo = document.querySelector('.turnInfo');
     const playBtn = document.querySelector('#playBtn');
     const winnerMsg = document.querySelector('#winnerMsg');
+    const resetBtn = document.querySelector('#reset-board');
 
     const playerX = Player(playerXname.value, 'X');
     const playerO = Player(playerOname.value, 'O');
 
     let turn = playerX;
 
-    function checkNameForm() {
+    const checkNameForm = () => {
         if (playerXname.value !== '' && playerOname.value !== '') {
             turnInfo.textContent = playerXname.value + '\'s turn';
             DisplayControl.startGame();
+            turnInfo.style.display = 'block';
         } else {
             return;
         }
     }
 
     playBtn.addEventListener('click', () => {
-        turnInfo.style.display = 'block';
         checkNameForm();
     })
 
@@ -108,6 +109,15 @@ const GameControl = (() => {
         }
     }
 
+    resetBtn.addEventListener('click', () => {
+        GameBoard.resetArr()
+        for (let i = 0; i < boardArr.length; i++) {
+            GameBoard.resetMark(i)
+        }
+        turn = playerX
+        turnInfo.textContent = playerXname.value + '\'s turn';
+    })
+
     return {
         gameFlow,
         checkWinner
@@ -116,13 +126,21 @@ const GameControl = (() => {
 
 const DisplayControl = (() => {
     const boardArr = document.querySelectorAll('#board');
-    const resetBtn = document.querySelector('#reset-board');
+    const boardDisplay = document.querySelector('.board-wrapper');
+    const playerForm = document.querySelector('.form-wrapper');
+    const play7 = document.querySelector('#play7');
+
+    play7.addEventListener('click', () => {
+        playerForm.style.display = 'block'
+    })
 
     const displayMark = (idx, mark) => {
         boardArr[idx].innerHTML = mark;
     }
 
     const startGame = () => {
+        playerForm.style.display = 'none';
+        boardDisplay.style.display = 'block'
         for (let i = 0; i < boardArr.length; i++) {
             boardArr[i].addEventListener('click', () => {
                 if (winnerMsg.textContent == '') {
@@ -138,13 +156,6 @@ const DisplayControl = (() => {
             })
         }
     }
-
-    resetBtn.addEventListener('click', () => {
-        GameBoard.resetArr()
-        for (let i = 0; i < boardArr.length; i++) {
-            GameBoard.resetMark(i)
-        }
-    })
 
     return {
         displayMark,

@@ -1,3 +1,10 @@
+:root {
+    --color-1: #F0EBCE;
+    --color-2: #AA8B56;
+    --color-3: #4E6C50;
+    --color-4: #395144;
+}
+
 .board-container {
     display: grid;
     width: 400px;
@@ -19,6 +26,7 @@ body {
     justify-content: center;
     top: 0;
     bottom: 0;
+    display: none;
 }
 
 #board {
@@ -33,26 +41,73 @@ body {
     color: white;
 }
 
-#backVid {
+/* #backVid {
     position: absolute;
     right: 0;
     bottom: 0;
     z-index: -1;
-  }
+  } */
 
 
-.form-popup {
-    position: relative;
-    width: 400px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.form-wrapper {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
-@media (min-aspect-ratio: 16/9) {
+.form-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid rgb(228, 228, 228);
+    width: 300px;
+    height: 150px;
+	border-radius: 8px;
+    position: absolute;
+    float: left;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-1);
+}
+
+.form-popup > input {
+    height: 30px;
+    border-radius: 10px;
+    border: 0;
+}
+
+.form-popup > input:focus {
+    outline: none;
+}
+
+#playBtn {
+    border: 0;
+    height: 3em;
+    width: 6em;
+}
+
+#reset-board {
+    display: none;
+}
+
+
+/* @media (min-aspect-ratio: 16/9) {
     #backVid {
         width: 100%;
         height: auto;
     }
+} */
+
+.form-wrapper {
+    display: none;
 }
