@@ -19,8 +19,7 @@ body {
     padding: 0;
 }
 
-.board-wrapper {
-    height: 100vh;
+.gamepage-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,5 +108,13 @@ body {
 } */
 
 .form-wrapper {
+    display: none;
+}
+
+* {
+    border: 1px solid black;
+}
+
+.winner-wrapper {
     display: none;
 }

@@ -126,7 +126,8 @@ const GameControl = (() => {
 
 const DisplayControl = (() => {
     const boardArr = document.querySelectorAll('#board');
-    const boardDisplay = document.querySelector('.board-wrapper');
+    const gamepage = document.querySelector('.gamepage-wrapper');
+    const homepage = document.querySelector('.homepage-wrapper')
     const playerForm = document.querySelector('.form-wrapper');
     const play7 = document.querySelector('#play7');
 
@@ -139,8 +140,9 @@ const DisplayControl = (() => {
     }
 
     const startGame = () => {
+        homepage.style.display = 'none'
         playerForm.style.display = 'none';
-        boardDisplay.style.display = 'block'
+        gamepage.style.display = 'block'
         for (let i = 0; i < boardArr.length; i++) {
             boardArr[i].addEventListener('click', () => {
                 if (winnerMsg.textContent == '') {
