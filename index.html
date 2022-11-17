@@ -12,8 +12,6 @@
         <source src="background/forest-background.mp4" type="">
     </video>
 
-    <audio preload="auto" loop src="sounds/pong-backsound.mp3" type="audio/mp3" id="audio_homepage"></audio>
-
     <div class="homepage-wrapper">
     <h1 id="title">TIC TAC TOE</h1>
 
@@ -23,11 +21,18 @@
     </div>
 
     <div class="gamepage-wrapper">
-    <main class="board-container">
+    <div class="gamepage">
+        <div class="buttons">
+        <img src="media/undo.png" id="reset-board" alt="">
+        <img src="media/home.png" id="home-button" alt="">
+        </div>
+        <div class="board-page">
+        <main class="board-container">
 
-    </main>
-    <p class="turnInfo"></p>
-        <button id="reset-board">reset</button>
+        </main>
+        <p class="turnInfo"></p>
+        </div>
+    </div>
     </div>
 
     <div class="winner-wrapper">

@@ -208,8 +208,11 @@ const GameControl = (() => {
 
 const DisplayControl = (() => {
     const boardContainer = document.querySelector('.board-container')
-    const gamepage = document.querySelector('.gamepage-wrapper');
-    const homepage = document.querySelector('.homepage-wrapper')
+    const gamepage = document.querySelector('.gamepage');
+    const homepage = document.querySelector('.homepage-wrapper');
+    const gamepageWrapper = document.querySelector('.gamepage-wrapper');
+
+    gamepageWrapper.style.display = 'none';
 
     const displayMark = (idx, mark) => {
         boardArr[idx].innerHTML = mark;
@@ -248,7 +251,7 @@ const DisplayControl = (() => {
     const startGame = () => {
         homepage.style.display = 'none';
         playerForm.style.display = 'none';
-        gamepage.style.display = 'block';
+        gamepageWrapper.style.display = 'block';
         createBoard();
         for (let i = 0; i < boardArr.length; i++) {
             boardArr[i].addEventListener('click', () => {
@@ -284,12 +287,6 @@ window.onclick = (e) => {
     if (e.target == playerForm) {
         playerForm.style.display = 'none'
     }
-}
-
-const audioHomepage = document.querySelector('#audio_homepage');
-
-window.onload = () => {
-    audioHomepage.play()
 }
 
 //todo for tomorrow
