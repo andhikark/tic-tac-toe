@@ -1,6 +1,7 @@
 const play3 = document.querySelector('#play3');
 const play5 = document.querySelector('#play5');
 const play7 = document.querySelector('#play7');
+const playerForm = document.querySelector('.form-wrapper');
 
 let playMode;
 
@@ -43,7 +44,6 @@ const GameBoard = (() => {
     const getboard7x7Arr = () => board7x7Arr;
 
     const putMark = (idx, mark) => {
-        DisplayControl.getPlayMode()
         if (playMode == '3x3') {
             board3x3Arr[idx] = mark;
             DisplayControl.displayMark(idx, mark);
@@ -162,9 +162,26 @@ const GameControl = (() => {
         boardArr[1] == 'X' && boardArr[6] == 'X' && boardArr[11] == 'X' && boardArr[16] == 'X' && boardArr[21] == 'X' || 
         boardArr[2] == 'X' && boardArr[7] == 'X' && boardArr[12] == 'X' && boardArr[17] == 'X' && boardArr[22] == 'X' ||
         boardArr[3] == 'X' && boardArr[8] == 'X' && boardArr[13] == 'X' && boardArr[18] == 'X' && boardArr[23] == 'X' ||
-        boardArr[4] == 'X' && boardArr[9] == 'X' && boardArr[14] == 'X' && boardArr[19] == 'X' && boardArr[24] == 'X' ) {
+        boardArr[4] == 'X' && boardArr[9] == 'X' && boardArr[14] == 'X' && boardArr[19] == 'X' && boardArr[24] == 'X' ||
+        boardArr[0] == 'X' && boardArr[6] == 'X' && boardArr[12] == 'X' && boardArr[18] == 'X' && boardArr[24] == 'X' ||
+        boardArr[4] == 'X' && boardArr[8] == 'X' && boardArr[12] == 'X' && boardArr[16] == 'X' && boardArr[20] == 'X' ) {
             winnerMsg.textContent = playerXname.value + ' wins!';
-        } 
+        } else if (boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' && boardArr[3] == 'X' && boardArr[4] == 'X' ||
+        boardArr[5] == 'O' && boardArr[6] == 'O' && boardArr[7] == 'O' && boardArr[8] == 'O' && boardArr[9] == 'O' ||
+        boardArr[10] == 'O' && boardArr[11] == 'O' && boardArr[12] == 'O' && boardArr[13] == 'O' && boardArr[14] == 'O' ||
+        boardArr[15] == 'O' && boardArr[16] == 'O' && boardArr[17] == 'O' && boardArr[18] == 'O' && boardArr[19] == 'O' ||
+        boardArr[20] == 'O' && boardArr[21] == 'O' && boardArr[22] == 'O' && boardArr[23] == 'O' && boardArr[24] == 'O' ||
+        boardArr[0] == 'O' && boardArr[5] == 'O' && boardArr[10] == 'O' && boardArr[15] == 'O' && boardArr[20] == 'O' ||
+        boardArr[1] == 'O' && boardArr[6] == 'O' && boardArr[11] == 'O' && boardArr[16] == 'O' && boardArr[21] == 'O' || 
+        boardArr[2] == 'O' && boardArr[7] == 'O' && boardArr[12] == 'O' && boardArr[17] == 'O' && boardArr[22] == 'O' ||
+        boardArr[3] == 'O' && boardArr[8] == 'O' && boardArr[13] == 'O' && boardArr[18] == 'O' && boardArr[23] == 'O' ||
+        boardArr[4] == 'O' && boardArr[9] == 'O' && boardArr[14] == 'O' && boardArr[19] == 'O' && boardArr[24] == 'O' ||
+        boardArr[0] == 'O' && boardArr[6] == 'O' && boardArr[12] == 'O' && boardArr[18] == 'O' && boardArr[24] == 'O' ||
+        boardArr[4] == 'O' && boardArr[8] == 'O' && boardArr[12] == 'O' && boardArr[16] == 'O' && boardArr[20] == 'O') {
+            winnerMsg.textContent = playerOname.value + ' wins!'
+        } else if (!boardArr.includes('')) {
+            winnerMsg.textContent = 'it\'s a tie!';
+        }
     }
 
     resetBtn.addEventListener('click', () => {
@@ -187,7 +204,6 @@ const DisplayControl = (() => {
     const boardContainer = document.querySelector('.board-container')
     const gamepage = document.querySelector('.gamepage-wrapper');
     const homepage = document.querySelector('.homepage-wrapper')
-    const playerForm = document.querySelector('.form-wrapper');
 
     const displayMark = (idx, mark) => {
         boardArr[idx].innerHTML = mark;
@@ -234,13 +250,16 @@ const DisplayControl = (() => {
                     if (boardArr[i].innerHTML == '' && playMode == '3x3') {
                         GameControl.gameFlow(i);
                         GameControl.checkWinner3x3(GameBoard.getboard3x3Arr());
+                        console.log(GameBoard.getboard3x3Arr());
                     } else if (boardArr[i].innerHTML == '' && playMode == '5x5') {
                         GameControl.gameFlow(i);
                         GameControl.checkWinner5x5(GameBoard.getboard5x5Arr());
-                    } else {
-                        return
+                        console.log(GameBoard.getboard5x5Arr());
+                    } else if (boardArr[i].innerHTML == '' && playMode == '7x7') {
+                        GameControl.gameFlow(i);
+                        GameControl.checkWinner7x7(GameBoard.getboard7x7Arr());
+                        console.log(GameBoard.getboard7x7Arr());
                     }
-                    console.log(GameBoard.getboard3x3Arr())
                 } else {
                     return;
                 }
