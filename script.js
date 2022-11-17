@@ -1,3 +1,27 @@
+const play3 = document.querySelector('#play3');
+const play5 = document.querySelector('#play5');
+const play7 = document.querySelector('#play7');
+
+let playMode;
+
+play3.addEventListener('click', () => {
+    playerForm.style.display = 'block';
+    playMode = '3x3';
+    DisplayControl.adjustBoard()
+})
+
+play5.addEventListener('click', () => {
+    playerForm.style.display = 'block';
+    playMode = '5x5';
+    DisplayControl.adjustBoard()
+})
+
+play7.addEventListener('click', () => {
+    playerForm.style.display = 'block'
+    playMode = '7x7'
+    DisplayControl.adjustBoard()
+})
+
 const Player = (playerName, playerMark) => {
 
     const getPlayerName = () => playerName;
@@ -19,21 +43,40 @@ const GameBoard = (() => {
     const getboard7x7Arr = () => board7x7Arr;
 
     const putMark = (idx, mark) => {
-        if (board3x3Arr[idx] == '') {
+        DisplayControl.getPlayMode()
+        if (playMode == '3x3') {
             board3x3Arr[idx] = mark;
             DisplayControl.displayMark(idx, mark);
-        } else {
-            return;
+        } else if (playMode == '5x5') {
+            board5x5Arr[idx] = mark;
+            DisplayControl.displayMark(idx, mark);
+        } else if (playMode == '7x7') {
+            board7x7Arr[idx] = mark;
+            DisplayControl.displayMark(idx, mark);
         }
     }
 
     const resetArr = () => {
-        board3x3Arr = Array(9).fill('')
+        if (playMode == '3x3') {
+            board3x3Arr = Array(9).fill('');
+        } else if (playMode == '5x5') {
+            board5x5Arr = Array(25).fill('');
+        } else if (playMode == '7x7') {
+            board7x7Arr = Array(49).fill('');
+        }
     }
 
     const resetMark = (idx) => {
-        board3x3Arr[idx] = ''
-        DisplayControl.displayMark(idx, '');
+        if (playMode == '3x3') {
+            board3x3Arr[idx] = ''
+            DisplayControl.displayMark(idx, '');
+        } else if (playMode == '5x5') {
+            board5x5Arr[idx] = ''
+            DisplayControl.displayMark(idx, '');
+        } else if (playMode == '7x7') {
+            board7x7Arr[idx] = ''
+            DisplayControl.displayMark(idx, '')
+        }
     }
 
     return {
@@ -109,6 +152,21 @@ const GameControl = (() => {
         }
     }
 
+    const checkWinner5x5 = (boardArr) => {
+        if (boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' && boardArr[3] == 'X' && boardArr[4] == 'X' ||
+        boardArr[5] == 'X' && boardArr[6] == 'X' && boardArr[7] == 'X' && boardArr[8] == 'X' && boardArr[9] == 'X' ||
+        boardArr[10] == 'X' && boardArr[11] == 'X' && boardArr[12] == 'X' && boardArr[13] == 'X' && boardArr[14] == 'X' ||
+        boardArr[15] == 'X' && boardArr[16] == 'X' && boardArr[17] == 'X' && boardArr[18] == 'X' && boardArr[19] == 'X' ||
+        boardArr[20] == 'X' && boardArr[21] == 'X' && boardArr[22] == 'X' && boardArr[23] == 'X' && boardArr[24] == 'X' ||
+        boardArr[0] == 'X' && boardArr[5] == 'X' && boardArr[10] == 'X' && boardArr[15] == 'X' && boardArr[20] == 'X' ||
+        boardArr[1] == 'X' && boardArr[6] == 'X' && boardArr[11] == 'X' && boardArr[16] == 'X' && boardArr[21] == 'X' || 
+        boardArr[2] == 'X' && boardArr[7] == 'X' && boardArr[12] == 'X' && boardArr[17] == 'X' && boardArr[22] == 'X' ||
+        boardArr[3] == 'X' && boardArr[8] == 'X' && boardArr[13] == 'X' && boardArr[18] == 'X' && boardArr[23] == 'X' ||
+        boardArr[4] == 'X' && boardArr[9] == 'X' && boardArr[14] == 'X' && boardArr[19] == 'X' && boardArr[24] == 'X' ) {
+            winnerMsg.textContent = playerXname.value + ' wins!';
+        } 
+    }
+
     resetBtn.addEventListener('click', () => {
         GameBoard.resetArr(GameBoard.getboard3x3Arr())
         for (let i = 0; i < (GameBoard.getboard3x3Arr()).length; i++) {
@@ -120,7 +178,8 @@ const GameControl = (() => {
 
     return {
         gameFlow,
-        checkWinner3x3
+        checkWinner3x3,
+        checkWinner5x5
     }
 })()
 
@@ -129,30 +188,6 @@ const DisplayControl = (() => {
     const gamepage = document.querySelector('.gamepage-wrapper');
     const homepage = document.querySelector('.homepage-wrapper')
     const playerForm = document.querySelector('.form-wrapper');
-    const play3 = document.querySelector('#play3');
-    const play5 = document.querySelector('#play5');
-    const play7 = document.querySelector('#play7');
-
-    let playMode = '';
-    const getPlayMode = () => playMode;
-
-    play3.addEventListener('click', () => {
-        playerForm.style.display = 'block';
-        playMode = '3x3';
-        adjustBoard()
-    })
-
-    play5.addEventListener('click', () => {
-        playerForm.style.display = 'block';
-        playMode = '5x5';
-        adjustBoard()
-    })
-
-    play7.addEventListener('click', () => {
-        playerForm.style.display = 'block'
-        playMode = '7x7'
-        adjustBoard()
-    })
 
     const displayMark = (idx, mark) => {
         boardArr[idx].innerHTML = mark;
@@ -165,19 +200,19 @@ const DisplayControl = (() => {
     }
 
     const adjustBoard = () => {
-        if (playMode = '3x3') {
+        if (playMode == '3x3') {
             for (let i = 0; i < 9; i++) {
                 createBoard()
             }
             boardContainer.style.setProperty("grid-template-rows", 'repeat(3, 1fr)');
             boardContainer.style.setProperty("grid-template-columns", 'repeat(3, 1fr)');
-        } else if (playMode = '5x5') {
+        } else if (playMode == '5x5') {
             for (let i = 0; i < 25; i++) {
                 createBoard()
             }
             boardContainer.style.setProperty("grid-template-rows", 'repeat(5, 1fr)');
             boardContainer.style.setProperty("grid-template-columns", 'repeat(5, 1fr)');
-        } else if (playMode = '7x7') {
+        } else if (playMode == '7x7') {
             for (let i = 0; i < 49; i++) {
                 createBoard()
             }
@@ -199,8 +234,9 @@ const DisplayControl = (() => {
                     if (boardArr[i].innerHTML == '' && playMode == '3x3') {
                         GameControl.gameFlow(i);
                         GameControl.checkWinner3x3(GameBoard.getboard3x3Arr());
-                    } else if (boardArr[i].innerHTML == '' && playMode == '3x3') {
-                        
+                    } else if (boardArr[i].innerHTML == '' && playMode == '5x5') {
+                        GameControl.gameFlow(i);
+                        GameControl.checkWinner5x5(GameBoard.getboard5x5Arr());
                     } else {
                         return
                     }
@@ -215,10 +251,9 @@ const DisplayControl = (() => {
     return {
         displayMark,
         startGame,
-        getPlayMode
+        adjustBoard
     }
 })();
 
 //todo for tomorrow
 /* 1. logic for checking the winner on 5x5 and 7x7 gameplay */
-
