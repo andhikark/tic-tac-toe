@@ -8,19 +8,16 @@ let playMode;
 play3.addEventListener('click', () => {
     playerForm.style.display = 'block';
     playMode = '3x3';
-    DisplayControl.adjustBoard()
 })
 
 play5.addEventListener('click', () => {
     playerForm.style.display = 'block';
     playMode = '5x5';
-    DisplayControl.adjustBoard()
 })
 
 play7.addEventListener('click', () => {
     playerForm.style.display = 'block'
     playMode = '7x7'
-    DisplayControl.adjustBoard()
 })
 
 const Player = (playerName, playerMark) => {
@@ -100,6 +97,8 @@ const GameControl = (() => {
     const playerX = Player(playerXname.value, 'X');
     const playerO = Player(playerOname.value, 'O');
 
+    winnerMsg.style.display = 'none'
+
     let turn = playerX;
 
     const checkNameForm = () => {
@@ -114,6 +113,7 @@ const GameControl = (() => {
 
     playBtn.addEventListener('click', () => {
         checkNameForm();
+        DisplayControl.adjustBoard();
     })
 
     const gameFlow = (idx) => {
@@ -137,6 +137,7 @@ const GameControl = (() => {
         boardArr[1] == 'X' && boardArr[4] == 'X' && boardArr[7] == 'X' ||
         boardArr[2] == 'X' && boardArr[5] == 'X' && boardArr[8] == 'X' ||
         boardArr[2] == 'X' && boardArr[4] == 'X' && boardArr[6] == 'X') {
+            winnerMsg.style.display = 'block'
             winnerMsg.textContent = playerXname.value + ' wins!';
         } else if (boardArr[0] == 'O' && boardArr[4] == 'O' && boardArr[8] == 'O' || 
         boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'O' || 
@@ -146,8 +147,10 @@ const GameControl = (() => {
         boardArr[1] == 'O' && boardArr[4] == 'O' && boardArr[7] == 'O' ||
         boardArr[2] == 'O' && boardArr[5] == 'O' && boardArr[8] == 'O' ||
         boardArr[2] == 'O' && boardArr[4] == 'O' && boardArr[6] == 'O') {
+            winnerMsg.style.display = 'block'
             winnerMsg.textContent = playerOname.value + ' wins!';
         } else if (!boardArr.includes('')){
+            winnerMsg.style.display = 'block'
             winnerMsg.textContent = 'it\'s a tie!';
         }
     }
@@ -165,6 +168,7 @@ const GameControl = (() => {
         boardArr[4] == 'X' && boardArr[9] == 'X' && boardArr[14] == 'X' && boardArr[19] == 'X' && boardArr[24] == 'X' ||
         boardArr[0] == 'X' && boardArr[6] == 'X' && boardArr[12] == 'X' && boardArr[18] == 'X' && boardArr[24] == 'X' ||
         boardArr[4] == 'X' && boardArr[8] == 'X' && boardArr[12] == 'X' && boardArr[16] == 'X' && boardArr[20] == 'X' ) {
+            winnerMsg.style.display = 'block'
             winnerMsg.textContent = playerXname.value + ' wins!';
         } else if (boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' && boardArr[3] == 'X' && boardArr[4] == 'X' ||
         boardArr[5] == 'O' && boardArr[6] == 'O' && boardArr[7] == 'O' && boardArr[8] == 'O' && boardArr[9] == 'O' ||
@@ -178,8 +182,10 @@ const GameControl = (() => {
         boardArr[4] == 'O' && boardArr[9] == 'O' && boardArr[14] == 'O' && boardArr[19] == 'O' && boardArr[24] == 'O' ||
         boardArr[0] == 'O' && boardArr[6] == 'O' && boardArr[12] == 'O' && boardArr[18] == 'O' && boardArr[24] == 'O' ||
         boardArr[4] == 'O' && boardArr[8] == 'O' && boardArr[12] == 'O' && boardArr[16] == 'O' && boardArr[20] == 'O') {
+            winnerMsg.style.display = 'block'
             winnerMsg.textContent = playerOname.value + ' wins!'
         } else if (!boardArr.includes('')) {
+            winnerMsg.style.display = 'block'
             winnerMsg.textContent = 'it\'s a tie!';
         }
     }
@@ -273,6 +279,18 @@ const DisplayControl = (() => {
         adjustBoard
     }
 })();
+
+window.onclick = (e) => {
+    if (e.target == playerForm) {
+        playerForm.style.display = 'none'
+    }
+}
+
+const audioHomepage = document.querySelector('#audio_homepage');
+
+window.onload = () => {
+    audioHomepage.play()
+}
 
 //todo for tomorrow
 /* 1. logic for checking the winner on 5x5 and 7x7 gameplay */
