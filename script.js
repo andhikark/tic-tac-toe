@@ -206,7 +206,7 @@ const GameControl = (() => {
         boardArr[4] == 'X' && boardArr[11] == 'X' && boardArr[18] == 'X' && boardArr[25] == 'X' && boardArr[32] == 'X' && boardArr[39] == 'X' && boardArr[46] == 'X' ||
         boardArr[5] == 'X' && boardArr[12] == 'X' && boardArr[19] == 'X' && boardArr[26] == 'X' && boardArr[33] == 'X' && boardArr[40] == 'X' && boardArr[47] == 'X' ||
         boardArr[6] == 'X' && boardArr[13] == 'X' && boardArr[20] == 'X' && boardArr[27] == 'X' && boardArr[34] == 'X' && boardArr[41] == 'X' && boardArr[48] == 'X' ||
-        boardArr[0] == 'X' && boardArr[8] == 'X' && boardArr[16] == 'X' && boardArr[22] == 'X' && boardArr[28] == 'X' && boardArr[34] == 'X' && boardArr[40] == 'X' ||
+        boardArr[0] == 'X' && boardArr[8] == 'X' && boardArr[16] == 'X' && boardArr[24] == 'X' && boardArr[32] == 'X' && boardArr[40] == 'X' && boardArr[48] == 'X' ||
         boardArr[6] == 'X' && boardArr[12] == 'X' && boardArr[18] == 'X' && boardArr[24] == 'X' && boardArr[30] == 'X' && boardArr[36] == 'X' && boardArr[42] == 'X') {
             winnerMsg.textContent = playerXname.value + ' wins!';
             winnerPopup.style.display = 'block';
@@ -224,7 +224,7 @@ const GameControl = (() => {
         boardArr[4] == 'O' && boardArr[11] == 'O' && boardArr[18] == 'O' && boardArr[25] == 'O' && boardArr[32] == 'O' && boardArr[39] == 'O' && boardArr[46] == 'O' ||
         boardArr[5] == 'O' && boardArr[12] == 'O' && boardArr[19] == 'O' && boardArr[26] == 'O' && boardArr[33] == 'O' && boardArr[40] == 'O' && boardArr[47] == 'O' ||
         boardArr[6] == 'O' && boardArr[13] == 'O' && boardArr[20] == 'O' && boardArr[27] == 'O' && boardArr[34] == 'O' && boardArr[41] == 'O' && boardArr[48] == 'O' ||
-        boardArr[0] == 'O' && boardArr[8] == 'O' && boardArr[16] == 'O' && boardArr[22] == 'O' && boardArr[28] == 'O' && boardArr[34] == 'O' && boardArr[40] == 'O' ||
+        boardArr[0] == 'O' && boardArr[8] == 'O' && boardArr[16] == 'O' && boardArr[24] == 'O' && boardArr[32] == 'O' && boardArr[40] == 'O' && boardArr[48] == 'O' ||
         boardArr[6] == 'O' && boardArr[12] == 'O' && boardArr[18] == 'O' && boardArr[24] == 'O' && boardArr[30] == 'O' && boardArr[36] == 'O' && boardArr[42] == 'O') {
             winnerMsg.textContent = playerOname.value + ' wins!';
             winnerPopup.style.display = 'block';

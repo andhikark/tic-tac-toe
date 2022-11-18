@@ -24,7 +24,7 @@
     <div class="gamepage-wrapper">
     <div class="gamepage">
         <div class="buttons">
-        <img src="media/undo.png" id="reset-board" alt="">
+        <img src="media/undo.png" id="reset-board" alt=""> <p style="font-size: 30px;">|</p>
         <img src="media/home.png" id="home-button" alt="">
         </div>
         <div class="board-page">
@@ -39,16 +39,20 @@
     <div class="winner-wrapper">
         <div class="winner-popup">
             <div id="winnercontent">
-            <p id="winnerMsg"></p>
-        </div>
+                <p id="winnerMsg"></p>
+                <div class="button-win">
+                    <button id="restart-win">Restart</button>
+                    <button id="home-winner">Home</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Name Form -->
     <div class="form-wrapper">
         <div class="form-popup">
-            <input type="text" id="playerx" placeholder="Player X">
-            <input type="text" id="playero" placeholder="Player O">
+            <input type="text" id="playerx" placeholder="Player X" minlength="1" maxlength="15">
+            <input type="text" id="playero" placeholder="Player O" minlength="1" maxlength="15">
             <p id="infoForm">Player X will play first!</p>
             <span>
                 <button id="playBtn">Start</button>
