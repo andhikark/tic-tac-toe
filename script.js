@@ -139,7 +139,7 @@ const GameControl = (() => {
         boardArr[2] == 'X' && boardArr[5] == 'X' && boardArr[8] == 'X' ||
         boardArr[2] == 'X' && boardArr[4] == 'X' && boardArr[6] == 'X') {
             winnerMsg.textContent = playerXname.value + ' wins!';
-            winnerPopup.style.display = 'block'
+            winnerPopup.style.display = 'block';
         } else if (boardArr[0] == 'O' && boardArr[4] == 'O' && boardArr[8] == 'O' || 
         boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'O' || 
         boardArr[3] == 'O' && boardArr[4] == 'O' && boardArr[5] == 'O' || 
@@ -149,10 +149,10 @@ const GameControl = (() => {
         boardArr[2] == 'O' && boardArr[5] == 'O' && boardArr[8] == 'O' ||
         boardArr[2] == 'O' && boardArr[4] == 'O' && boardArr[6] == 'O') {
             winnerMsg.textContent = playerOname.value + ' wins!';
-            winnerPopup.style.display = 'block'
+            winnerPopup.style.display = 'block';
         } else if (!boardArr.includes('')){
             winnerMsg.textContent = 'it\'s a tie!';
-            winnerPopup.style.display = 'block'
+            winnerPopup.style.display = 'block';
         }
     }
 
@@ -170,7 +170,7 @@ const GameControl = (() => {
         boardArr[0] == 'X' && boardArr[6] == 'X' && boardArr[12] == 'X' && boardArr[18] == 'X' && boardArr[24] == 'X' ||
         boardArr[4] == 'X' && boardArr[8] == 'X' && boardArr[12] == 'X' && boardArr[16] == 'X' && boardArr[20] == 'X' ) {
             winnerMsg.textContent = playerXname.value + ' wins!';
-            winnerPopup.style.display = 'block'
+            winnerPopup.style.display = 'block';
         } else if (boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' && boardArr[3] == 'X' && boardArr[4] == 'X' ||
         boardArr[5] == 'O' && boardArr[6] == 'O' && boardArr[7] == 'O' && boardArr[8] == 'O' && boardArr[9] == 'O' ||
         boardArr[10] == 'O' && boardArr[11] == 'O' && boardArr[12] == 'O' && boardArr[13] == 'O' && boardArr[14] == 'O' ||
@@ -183,20 +183,33 @@ const GameControl = (() => {
         boardArr[4] == 'O' && boardArr[9] == 'O' && boardArr[14] == 'O' && boardArr[19] == 'O' && boardArr[24] == 'O' ||
         boardArr[0] == 'O' && boardArr[6] == 'O' && boardArr[12] == 'O' && boardArr[18] == 'O' && boardArr[24] == 'O' ||
         boardArr[4] == 'O' && boardArr[8] == 'O' && boardArr[12] == 'O' && boardArr[16] == 'O' && boardArr[20] == 'O') {
-            winnerMsg.textContent = playerOname.value + ' wins!'
-            winnerPopup.style.display = 'block'
+            winnerMsg.textContent = playerOname.value + ' wins!';
+            winnerPopup.style.display = 'block';
         } else if (!boardArr.includes('')) {
             winnerMsg.textContent = 'it\'s a tie!';
-            winnerPopup.style.display = 'block'
+            winnerPopup.style.display = 'block';
         }
     }
 
     resetBtn.addEventListener('click', () => {
-        GameBoard.resetArr(GameBoard.getboard3x3Arr())
-        for (let i = 0; i < (GameBoard.getboard3x3Arr()).length; i++) {
-            GameBoard.resetMark(i)
+        console.log(1)
+        if (playMode == '3x3') {
+            GameBoard.resetArr(GameBoard.getboard3x3Arr())
+            for (let i = 0; i < (GameBoard.getboard3x3Arr()).length; i++) {
+                GameBoard.resetMark(i);
+            }
+        } else if (playMode == '5x5') {
+            GameBoard.resetArr(GameBoard.getboard5x5Arr())
+            for (let i = 0; i < (GameBoard.getboard5x5Arr()).length; i++) {
+                GameBoard.resetMark(i);
+            }
+        } else if (playMode == '7x7') {
+            GameBoard.resetArr(GameBoard.getboard7x7Arr())
+            for (let i = 0; i < (GameBoard.getboard7x7Arr()).length; i++) {
+                GameBoard.resetMark(i);
+            }
         }
-        turn = playerX
+        turn = playerX;
         turnInfo.textContent = playerXname.value + '\'s turn';
     })
 
