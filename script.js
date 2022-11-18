@@ -191,6 +191,49 @@ const GameControl = (() => {
         }
     }
 
+    const checkWinner7x7 = (boardArr) => {
+        if (boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' && boardArr[3] == 'X' && boardArr[4] == 'X' && boardArr[5] == 'X' && boardArr[6] == 'X' ||
+        boardArr[7] == 'X' && boardArr[8] == 'X' && boardArr[9] == 'X' && boardArr[10] == 'X' && boardArr[11] == 'X' && boardArr[12] == 'X' && boardArr[13] == 'X' ||
+        boardArr[14] == 'X' && boardArr[15] == 'X' && boardArr[16] == 'X' && boardArr[17] == 'X' && boardArr[18] == 'X' && boardArr[19] == 'X' && boardArr[20] == 'X' ||
+        boardArr[21] == 'X' && boardArr[22] == 'X' && boardArr[23] == 'X' && boardArr[24] == 'X' && boardArr[25] == 'X' && boardArr[26] == 'X' && boardArr[27] == 'X' ||
+        boardArr[28] == 'X' && boardArr[29] == 'X' && boardArr[30] == 'X' && boardArr[31] == 'X' && boardArr[32] == 'X' && boardArr[33] == 'X' && boardArr[34] == 'X' ||
+        boardArr[35] == 'X' && boardArr[36] == 'X' && boardArr[37] == 'X' && boardArr[38] == 'X' && boardArr[39] == 'X' && boardArr[40] == 'X' && boardArr[41] == 'X' ||
+        boardArr[42] == 'X' && boardArr[43] == 'X' && boardArr[44] == 'X' && boardArr[45] == 'X' && boardArr[46] == 'X' && boardArr[47] == 'X' && boardArr[48] == 'X' ||
+        boardArr[0] == 'X' && boardArr[7] == 'X' && boardArr[14] == 'X' && boardArr[21] == 'X' && boardArr[28] == 'X' && boardArr[35] == 'X' && boardArr[42] == 'X' ||
+        boardArr[1] == 'X' && boardArr[8] == 'X' && boardArr[15] == 'X' && boardArr[22] == 'X' && boardArr[29] == 'X' && boardArr[36] == 'X' && boardArr[43] == 'X' ||
+        boardArr[2] == 'X' && boardArr[9] == 'X' && boardArr[16] == 'X' && boardArr[23] == 'X' && boardArr[30] == 'X' && boardArr[37] == 'X' && boardArr[44] == 'X' ||
+        boardArr[3] == 'X' && boardArr[10] == 'X' && boardArr[17] == 'X' && boardArr[24] == 'X' && boardArr[31] == 'X' && boardArr[38] == 'X' && boardArr[45] == 'X' ||
+        boardArr[4] == 'X' && boardArr[11] == 'X' && boardArr[18] == 'X' && boardArr[25] == 'X' && boardArr[32] == 'X' && boardArr[39] == 'X' && boardArr[46] == 'X' ||
+        boardArr[5] == 'X' && boardArr[12] == 'X' && boardArr[19] == 'X' && boardArr[26] == 'X' && boardArr[33] == 'X' && boardArr[40] == 'X' && boardArr[47] == 'X' ||
+        boardArr[6] == 'X' && boardArr[13] == 'X' && boardArr[20] == 'X' && boardArr[27] == 'X' && boardArr[34] == 'X' && boardArr[41] == 'X' && boardArr[48] == 'X' ||
+        boardArr[0] == 'X' && boardArr[8] == 'X' && boardArr[16] == 'X' && boardArr[22] == 'X' && boardArr[28] == 'X' && boardArr[34] == 'X' && boardArr[40] == 'X' ||
+        boardArr[6] == 'X' && boardArr[12] == 'X' && boardArr[18] == 'X' && boardArr[24] == 'X' && boardArr[30] == 'X' && boardArr[36] == 'X' && boardArr[42] == 'X') {
+            winnerMsg.textContent = playerXname.value + ' wins!';
+            winnerPopup.style.display = 'block';
+        } else if (boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'X' && boardArr[3] == 'O' && boardArr[4] == 'O' && boardArr[5] == 'O' && boardArr[6] == 'O' ||
+        boardArr[7] == 'O' && boardArr[8] == 'O' && boardArr[9] == 'O' && boardArr[10] == 'O' && boardArr[11] == 'O' && boardArr[12] == 'O' && boardArr[13] == 'O' ||
+        boardArr[14] == 'O' && boardArr[15] == 'O' && boardArr[16] == 'O' && boardArr[17] == 'O' && boardArr[18] == 'O' && boardArr[19] == 'O' && boardArr[20] == 'O' ||
+        boardArr[21] == 'O' && boardArr[22] == 'O' && boardArr[23] == 'O' && boardArr[24] == 'O' && boardArr[25] == 'O' && boardArr[26] == 'O' && boardArr[27] == 'O' ||
+        boardArr[28] == 'O' && boardArr[29] == 'O' && boardArr[30] == 'O' && boardArr[31] == 'O' && boardArr[32] == 'O' && boardArr[33] == 'O' && boardArr[34] == 'O' ||
+        boardArr[35] == 'O' && boardArr[36] == 'O' && boardArr[37] == 'O' && boardArr[38] == 'O' && boardArr[39] == 'O' && boardArr[40] == 'O' && boardArr[41] == 'O' ||
+        boardArr[42] == 'O' && boardArr[43] == 'O' && boardArr[44] == 'O' && boardArr[45] == 'O' && boardArr[46] == 'O' && boardArr[47] == 'O' && boardArr[48] == 'O' ||
+        boardArr[0] == 'O' && boardArr[7] == 'O' && boardArr[14] == 'O' && boardArr[21] == 'O' && boardArr[28] == 'O' && boardArr[35] == 'O' && boardArr[42] == 'O' ||
+        boardArr[1] == 'O' && boardArr[8] == 'O' && boardArr[15] == 'O' && boardArr[22] == 'O' && boardArr[29] == 'O' && boardArr[36] == 'O' && boardArr[43] == 'O' ||
+        boardArr[2] == 'O' && boardArr[9] == 'O' && boardArr[16] == 'O' && boardArr[23] == 'O' && boardArr[30] == 'O' && boardArr[37] == 'O' && boardArr[44] == 'O' ||
+        boardArr[3] == 'O' && boardArr[10] == 'O' && boardArr[17] == 'O' && boardArr[24] == 'O' && boardArr[31] == 'O' && boardArr[38] == 'O' && boardArr[45] == 'O' ||
+        boardArr[4] == 'O' && boardArr[11] == 'O' && boardArr[18] == 'O' && boardArr[25] == 'O' && boardArr[32] == 'O' && boardArr[39] == 'O' && boardArr[46] == 'O' ||
+        boardArr[5] == 'O' && boardArr[12] == 'O' && boardArr[19] == 'O' && boardArr[26] == 'O' && boardArr[33] == 'O' && boardArr[40] == 'O' && boardArr[47] == 'O' ||
+        boardArr[6] == 'O' && boardArr[13] == 'O' && boardArr[20] == 'O' && boardArr[27] == 'O' && boardArr[34] == 'O' && boardArr[41] == 'O' && boardArr[48] == 'O' ||
+        boardArr[0] == 'O' && boardArr[8] == 'O' && boardArr[16] == 'O' && boardArr[22] == 'O' && boardArr[28] == 'O' && boardArr[34] == 'O' && boardArr[40] == 'O' ||
+        boardArr[6] == 'O' && boardArr[12] == 'O' && boardArr[18] == 'O' && boardArr[24] == 'O' && boardArr[30] == 'O' && boardArr[36] == 'O' && boardArr[42] == 'O') {
+            winnerMsg.textContent = playerOname.value + ' wins!';
+            winnerPopup.style.display = 'block';
+        } else if (!boardArr.includes('')) {
+            winnerMsg.textContent = 'it\'s a tie!';
+            winnerPopup.style.display = 'block';
+        }
+    }
+
     resetBtn.addEventListener('click', () => {
         console.log(1)
         if (playMode == '3x3') {
@@ -216,7 +259,8 @@ const GameControl = (() => {
     return {
         gameFlow,
         checkWinner3x3,
-        checkWinner5x5
+        checkWinner5x5,
+        checkWinner7x7
     }
 })()
 
@@ -233,6 +277,9 @@ const DisplayControl = (() => {
         const board = document.createElement('div');
         board.classList.add('board')
         boardContainer.appendChild(board)
+        if (playMode == '7x7') {
+            board.style.setProperty("font-size", "25px")
+        }
     }
 
     const adjustBoard = () => {
@@ -293,6 +340,3 @@ const DisplayControl = (() => {
         adjustBoard
     }
 })();
-
-//todo for tomorrow
-/* 1. logic for checking the winner on 5x5 and 7x7 gameplay */
