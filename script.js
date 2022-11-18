@@ -8,16 +8,19 @@ let playMode;
 play3.addEventListener('click', () => {
     playerForm.style.display = 'block';
     playMode = '3x3';
+    DisplayControl.adjustBoard()
 })
 
 play5.addEventListener('click', () => {
     playerForm.style.display = 'block';
     playMode = '5x5';
+    DisplayControl.adjustBoard()
 })
 
 play7.addEventListener('click', () => {
     playerForm.style.display = 'block'
     playMode = '7x7'
+    DisplayControl.adjustBoard()
 })
 
 const Player = (playerName, playerMark) => {
@@ -93,11 +96,10 @@ const GameControl = (() => {
     const playBtn = document.querySelector('#playBtn');
     const winnerMsg = document.querySelector('#winnerMsg');
     const resetBtn = document.querySelector('#reset-board');
+    const winnerPopup = document.querySelector('.winner-wrapper');
 
     const playerX = Player(playerXname.value, 'X');
     const playerO = Player(playerOname.value, 'O');
-
-    winnerMsg.style.display = 'none'
 
     let turn = playerX;
 
@@ -113,7 +115,6 @@ const GameControl = (() => {
 
     playBtn.addEventListener('click', () => {
         checkNameForm();
-        DisplayControl.adjustBoard();
     })
 
     const gameFlow = (idx) => {
@@ -137,8 +138,8 @@ const GameControl = (() => {
         boardArr[1] == 'X' && boardArr[4] == 'X' && boardArr[7] == 'X' ||
         boardArr[2] == 'X' && boardArr[5] == 'X' && boardArr[8] == 'X' ||
         boardArr[2] == 'X' && boardArr[4] == 'X' && boardArr[6] == 'X') {
-            winnerMsg.style.display = 'block'
             winnerMsg.textContent = playerXname.value + ' wins!';
+            winnerPopup.style.display = 'block'
         } else if (boardArr[0] == 'O' && boardArr[4] == 'O' && boardArr[8] == 'O' || 
         boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'O' || 
         boardArr[3] == 'O' && boardArr[4] == 'O' && boardArr[5] == 'O' || 
@@ -147,11 +148,11 @@ const GameControl = (() => {
         boardArr[1] == 'O' && boardArr[4] == 'O' && boardArr[7] == 'O' ||
         boardArr[2] == 'O' && boardArr[5] == 'O' && boardArr[8] == 'O' ||
         boardArr[2] == 'O' && boardArr[4] == 'O' && boardArr[6] == 'O') {
-            winnerMsg.style.display = 'block'
             winnerMsg.textContent = playerOname.value + ' wins!';
+            winnerPopup.style.display = 'block'
         } else if (!boardArr.includes('')){
-            winnerMsg.style.display = 'block'
             winnerMsg.textContent = 'it\'s a tie!';
+            winnerPopup.style.display = 'block'
         }
     }
 
@@ -168,8 +169,8 @@ const GameControl = (() => {
         boardArr[4] == 'X' && boardArr[9] == 'X' && boardArr[14] == 'X' && boardArr[19] == 'X' && boardArr[24] == 'X' ||
         boardArr[0] == 'X' && boardArr[6] == 'X' && boardArr[12] == 'X' && boardArr[18] == 'X' && boardArr[24] == 'X' ||
         boardArr[4] == 'X' && boardArr[8] == 'X' && boardArr[12] == 'X' && boardArr[16] == 'X' && boardArr[20] == 'X' ) {
-            winnerMsg.style.display = 'block'
             winnerMsg.textContent = playerXname.value + ' wins!';
+            winnerPopup.style.display = 'block'
         } else if (boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' && boardArr[3] == 'X' && boardArr[4] == 'X' ||
         boardArr[5] == 'O' && boardArr[6] == 'O' && boardArr[7] == 'O' && boardArr[8] == 'O' && boardArr[9] == 'O' ||
         boardArr[10] == 'O' && boardArr[11] == 'O' && boardArr[12] == 'O' && boardArr[13] == 'O' && boardArr[14] == 'O' ||
@@ -182,11 +183,11 @@ const GameControl = (() => {
         boardArr[4] == 'O' && boardArr[9] == 'O' && boardArr[14] == 'O' && boardArr[19] == 'O' && boardArr[24] == 'O' ||
         boardArr[0] == 'O' && boardArr[6] == 'O' && boardArr[12] == 'O' && boardArr[18] == 'O' && boardArr[24] == 'O' ||
         boardArr[4] == 'O' && boardArr[8] == 'O' && boardArr[12] == 'O' && boardArr[16] == 'O' && boardArr[20] == 'O') {
-            winnerMsg.style.display = 'block'
             winnerMsg.textContent = playerOname.value + ' wins!'
+            winnerPopup.style.display = 'block'
         } else if (!boardArr.includes('')) {
-            winnerMsg.style.display = 'block'
             winnerMsg.textContent = 'it\'s a tie!';
+            winnerPopup.style.display = 'block'
         }
     }
 
@@ -208,11 +209,8 @@ const GameControl = (() => {
 
 const DisplayControl = (() => {
     const boardContainer = document.querySelector('.board-container')
-    const gamepage = document.querySelector('.gamepage');
+    const gamepage = document.querySelector('.gamepage-wrapper');
     const homepage = document.querySelector('.homepage-wrapper');
-    const gamepageWrapper = document.querySelector('.gamepage-wrapper');
-
-    gamepageWrapper.style.display = 'none';
 
     const displayMark = (idx, mark) => {
         boardArr[idx].innerHTML = mark;
@@ -251,7 +249,7 @@ const DisplayControl = (() => {
     const startGame = () => {
         homepage.style.display = 'none';
         playerForm.style.display = 'none';
-        gamepageWrapper.style.display = 'block';
+        gamepage.style.display = 'block';
         createBoard();
         for (let i = 0; i < boardArr.length; i++) {
             boardArr[i].addEventListener('click', () => {
@@ -282,12 +280,6 @@ const DisplayControl = (() => {
         adjustBoard
     }
 })();
-
-window.onclick = (e) => {
-    if (e.target == playerForm) {
-        playerForm.style.display = 'none'
-    }
-}
 
 //todo for tomorrow
 /* 1. logic for checking the winner on 5x5 and 7x7 gameplay */

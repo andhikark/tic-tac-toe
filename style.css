@@ -5,6 +5,10 @@
     --color-4: #395144;
 }
 
+* {
+    font-family: Nunito;
+}
+
 .board-container {
     display: grid;
     width: 500px;
@@ -14,6 +18,7 @@
     border-top: 5px solid var(--color-1);
     border-right: 5px solid var(--color-1);
     border-left: 5px solid var(--color-1);
+    border-radius: 10px;
 }
 
 body {
@@ -23,6 +28,7 @@ body {
 
 .gamepage-wrapper {
     width: 100%;
+    display: none;
 }
 
 .board-page {
@@ -51,6 +57,7 @@ body {
     align-items: center;
     color: white;
     vertical-align: middle;
+    border-radius: 3px;
 }
 
 #backVid {
@@ -132,10 +139,6 @@ body {
     display: none;
 }
 
-.winner-wrapper {
-
-}
-
 #reset-board, #home-button {
     width: 30px;
     height: 30px;
@@ -152,4 +155,44 @@ body {
     width: 100px;
     height: 50px;
     background-color: var(--color-3);
+}
+
+.winner-wrapper {
+    display: none;
+}
+
+.winner-popup {
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+#winnercontent {
+    background-color: var(--color-1);
+    padding: 20px;
+    width: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+#play3, #play5, #play7 {
+    width: 7em;
+    height: 3em;
+    margin-top: 10px;
+    border: 0;
+    background-color: var(--color-4);
+    color: var(--color-1);
+    border-radius: 10px;
+
 }
