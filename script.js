@@ -95,9 +95,7 @@ const GameControl = (() => {
     const playerXname = document.querySelector('#playerx');
     const playerOname = document.querySelector('#playero');
     const turnInfo = document.querySelector('.turnInfo');
-    const playBtn = document.querySelector('#playBtn');
     const winnerMsg = document.querySelector('#winnerMsg');
-    const resetBtn = document.querySelector('#reset-board');
     const winnerPopup = document.querySelector('.winner-wrapper');
 
     const playerX = Player(playerXname.value, 'X');
@@ -241,8 +239,7 @@ const GameControl = (() => {
         }
     }
 
-    resetBtn.addEventListener('click', () => {
-        console.log(1)
+    const restartGame = () => {
         if (playMode == '3x3') {
             GameBoard.resetArr(GameBoard.getboard3x3Arr())
             for (let i = 0; i < (GameBoard.getboard3x3Arr()).length; i++) {
@@ -261,20 +258,11 @@ const GameControl = (() => {
         }
         turn = playerX;
         turnInfo.textContent = playerXname.value + '\'s turn';
-    })
-
-    playBtn.addEventListener('click', () => {
-        checkNameForm();
-    })
-
-    playerForm.addEventListener('keydown', (e) => {
-        if (e.key == 'Enter') {
-            checkNameForm();
-        }
-    })
+    }
 
     return {
         gameFlow,
+        checkNameForm,
         checkWinner3x3,
         checkWinner5x5,
         checkWinner7x7
@@ -362,6 +350,26 @@ const audioIconGame = document.querySelector('#sound_icon');
 const audioIconHome = document.querySelector('#sound_home');
 const backsoundAudio = document.querySelector('#backsound');
 const winnerWrapper = document.querySelector('.winner-popup');
+const playBtn = document.querySelector('#playBtn');
+
+const resetPopup = document.querySelector('.resetwarn-wrapper');
+const resetBtn = document.querySelector('#reset-board');
+const resetYes = document.querySelector('#restartYes');
+const resetNo = document.querySelector('#restartNo');
+
+playBtn.addEventListener('click', () => {
+    GameControl.checkNameForm();
+})
+
+playerForm.addEventListener('keydown', (e) => {
+    if (e.key == 'Enter') {
+        GameControl.checkNameForm();
+    }
+})
+
+resetBtn.addEventListener('click', () => {
+    resetPopup.style.display = 'block'
+})
 
 audioIconGame.addEventListener('click', () => {
     if (backsoundAudio.paused) {
@@ -392,5 +400,7 @@ window.onclick = function(e) {
         winnerWrapper.style.display = 'none'
     } else if (e.target == playerForm) {
         playerForm.style.display = 'none'
+    } else if (e.target == resetPopup) {
+        resetPopup.style.display = 'none'
     }
 }
