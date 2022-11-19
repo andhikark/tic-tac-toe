@@ -13,13 +13,14 @@
         <source src="media/forest-background.mp4" type="">
     </video>
 
-    <div class="homepage-wrapper">
-    <h1 id="title">TIC TAC TOE</h1>
+    <div class="homepage-wrap2">
+        <div class="homepage-wrapper">
+        <h1 id="title">TIC TAC TOE</h1>
 
-    <button id="play3">3 x 3</button>
-    <button id="play5">5 x 5</button>
-    <button id="play7" style="margin-bottom: 50px;">7 x 7</button>
-    <img src="media/mute-home.png" id="sound_home" alt="">
+        <button id="play3">3 x 3</button>
+        <button id="play5">5 x 5</button>
+        <button id="play7" style="margin-bottom: 50px;">7 x 7</button>
+        </div>
     </div>
 
     <div class="gamepage-wrapper">
@@ -27,7 +28,6 @@
         <div class="buttons">
         <img src="media/undo.png" id="reset-board" alt=""> <p style="font-size: 30px;">|</p>
         <img src="media/home.png" id="home-button" alt=""> <p style="font-size: 30px;">|</p>
-        <img src="media/mute.png" id="sound_icon" alt="">
         </div>
         <div class="board-page">
         <main class="board-container">
@@ -50,8 +50,6 @@
         </div>
     </div>
 
-    <audio loop src="media/pong-backsound.mp3" type="audio/mpeg" id="backsound"></audio>
-
     <!-- Name Form -->
     <div class="form-wrapper">
         <div class="form-popup">
@@ -67,10 +65,21 @@
     <!-- RESET warning -->
     <div class="resetwarn-wrapper">
         <div class="reset-popup">
-            <h2 style="margin: 0;">Start over your game?</h2>
+            <h3 style="margin: 0;">Start over your game? <br> The first turn will be given to player X</h2>
             <div class="resetButtons">
                 <button id="restartYes">Restart</button>
                 <button id="restartNo">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOME popup -->
+    <div class="backhome-wrapper">
+        <div class="backhome-popup">
+            <h3 style="margin: 0;">Go back to the homepage? <br> You'll lose your entire progress</h3>
+            <div class="backhome-button">
+                <button id="homeYes">Home</button>
+                <button id="homeNo">Cancel</button>
             </div>
         </div>
     </div>

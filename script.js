@@ -263,6 +263,7 @@ const GameControl = (() => {
     return {
         gameFlow,
         checkNameForm,
+        restartGame,
         checkWinner3x3,
         checkWinner5x5,
         checkWinner7x7
@@ -339,18 +340,25 @@ const DisplayControl = (() => {
         }
     }
 
+    const backHome = () => {
+        window.location.reload()
+    }
+
     return {
         displayMark,
         startGame,
+        backHome,
         adjustBoard
     }
 })();
 
-const audioIconGame = document.querySelector('#sound_icon');
-const audioIconHome = document.querySelector('#sound_home');
-const backsoundAudio = document.querySelector('#backsound');
-const winnerWrapper = document.querySelector('.winner-popup');
 const playBtn = document.querySelector('#playBtn');
+const winnerWrapper = document.querySelector('.winner-popup');
+
+const homeBtn = document.querySelector('#home-button');
+const homeYes = document.querySelector('#homeYes');
+const homeNo = document.querySelector('#homeNo');
+const homeWarnWrapper = document.querySelector('.backhome-wrapper');
 
 const resetPopup = document.querySelector('.resetwarn-wrapper');
 const resetBtn = document.querySelector('#reset-board');
@@ -368,31 +376,29 @@ playerForm.addEventListener('keydown', (e) => {
 })
 
 resetBtn.addEventListener('click', () => {
-    resetPopup.style.display = 'block'
+    resetPopup.style.display = 'block';
 })
 
-audioIconGame.addEventListener('click', () => {
-    if (backsoundAudio.paused) {
-        audioIconGame.src = 'media/speaker.png'
-        audioIconHome.src = 'media/speaker-home.png'
-        backsoundAudio.play();
-    } else {
-        backsoundAudio.pause();
-        audioIconGame.src = 'media/mute.png'
-        audioIconHome.src = 'media/mute-home.png'
-    }
+resetYes.addEventListener('click', () => {
+    GameControl.restartGame();
+    resetPopup.style.display = 'none';
 })
 
-audioIconHome.addEventListener('click', () => {
-    if (backsoundAudio.paused) {
-        audioIconHome.src = 'media/speaker-home.png'
-        audioIconGame.src = 'media/speaker.png'
-        backsoundAudio.play();
-    } else {
-        backsoundAudio.pause();
-        audioIconHome.src = 'media/mute-home.png'
-        audioIconGame.src = 'media/mute.png'
-    }
+resetNo.addEventListener('click', () => {
+    resetPopup.style.display = 'none';
+})
+
+homeBtn.addEventListener('click', () => {
+    homeWarnWrapper.style.display = 'block';
+})
+
+homeYes.addEventListener('click', () => {
+    DisplayControl.backHome();
+    homeWarnWrapper.style.display = 'none'
+})
+
+homeNo.addEventListener('click', () => {
+    homeWarnWrapper.style.display = 'none'
 })
 
 window.onclick = function(e) {
@@ -402,5 +408,7 @@ window.onclick = function(e) {
         playerForm.style.display = 'none'
     } else if (e.target == resetPopup) {
         resetPopup.style.display = 'none'
+    } else if (e.target == homeWarnWrapper) {
+        homeWarnWrapper.style.display = 'none'
     }
 }
