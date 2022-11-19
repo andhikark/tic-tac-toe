@@ -18,14 +18,16 @@
 
     <button id="play3">3 x 3</button>
     <button id="play5">5 x 5</button>
-    <button id="play7">7 x 7</button>
+    <button id="play7" style="margin-bottom: 50px;">7 x 7</button>
+    <img src="media/mute-home.png" id="sound_home" alt="">
     </div>
 
     <div class="gamepage-wrapper">
     <div class="gamepage">
         <div class="buttons">
         <img src="media/undo.png" id="reset-board" alt=""> <p style="font-size: 30px;">|</p>
-        <img src="media/home.png" id="home-button" alt="">
+        <img src="media/home.png" id="home-button" alt=""> <p style="font-size: 30px;">|</p>
+        <img src="media/mute.png" id="sound_icon" alt="">
         </div>
         <div class="board-page">
         <main class="board-container">
@@ -47,6 +49,8 @@
             </div>
         </div>
     </div>
+
+    <audio src="media/pong-backsound.mp3" type="audio/mpeg" id="backsound"></audio>
 
     <!-- Name Form -->
     <div class="form-wrapper">

@@ -2,6 +2,8 @@ const play3 = document.querySelector('#play3');
 const play5 = document.querySelector('#play5');
 const play7 = document.querySelector('#play7');
 const playerForm = document.querySelector('.form-wrapper');
+const backsound = document.querySelector('#backsound');
+const soundIcon = document.querySelector('#sound_icon');
 
 let playMode;
 
@@ -113,10 +115,6 @@ const GameControl = (() => {
         }
     }
 
-    playBtn.addEventListener('click', () => {
-        checkNameForm();
-    })
-
     const gameFlow = (idx) => {
         if (turn == playerX) {
             GameBoard.putMark(idx, playerX.getPlayerMark());
@@ -140,6 +138,7 @@ const GameControl = (() => {
         boardArr[2] == 'X' && boardArr[4] == 'X' && boardArr[6] == 'X') {
             winnerMsg.textContent = playerXname.value + ' wins!';
             winnerPopup.style.display = 'block';
+            turnInfo.style.display = 'none';
         } else if (boardArr[0] == 'O' && boardArr[4] == 'O' && boardArr[8] == 'O' || 
         boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'O' || 
         boardArr[3] == 'O' && boardArr[4] == 'O' && boardArr[5] == 'O' || 
@@ -150,9 +149,11 @@ const GameControl = (() => {
         boardArr[2] == 'O' && boardArr[4] == 'O' && boardArr[6] == 'O') {
             winnerMsg.textContent = playerOname.value + ' wins!';
             winnerPopup.style.display = 'block';
+            turnInfo.style.display = 'none';
         } else if (!boardArr.includes('')){
             winnerMsg.textContent = 'it\'s a tie!';
             winnerPopup.style.display = 'block';
+            turnInfo.style.display = 'none';
         }
     }
 
@@ -171,6 +172,7 @@ const GameControl = (() => {
         boardArr[4] == 'X' && boardArr[8] == 'X' && boardArr[12] == 'X' && boardArr[16] == 'X' && boardArr[20] == 'X' ) {
             winnerMsg.textContent = playerXname.value + ' wins!';
             winnerPopup.style.display = 'block';
+            turnInfo.style.display = 'none';
         } else if (boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' && boardArr[3] == 'X' && boardArr[4] == 'X' ||
         boardArr[5] == 'O' && boardArr[6] == 'O' && boardArr[7] == 'O' && boardArr[8] == 'O' && boardArr[9] == 'O' ||
         boardArr[10] == 'O' && boardArr[11] == 'O' && boardArr[12] == 'O' && boardArr[13] == 'O' && boardArr[14] == 'O' ||
@@ -185,9 +187,11 @@ const GameControl = (() => {
         boardArr[4] == 'O' && boardArr[8] == 'O' && boardArr[12] == 'O' && boardArr[16] == 'O' && boardArr[20] == 'O') {
             winnerMsg.textContent = playerOname.value + ' wins!';
             winnerPopup.style.display = 'block';
+            turnInfo.style.display = 'none';
         } else if (!boardArr.includes('')) {
             winnerMsg.textContent = 'it\'s a tie!';
             winnerPopup.style.display = 'block';
+            turnInfo.style.display = 'none';
         }
     }
 
@@ -210,6 +214,7 @@ const GameControl = (() => {
         boardArr[6] == 'X' && boardArr[12] == 'X' && boardArr[18] == 'X' && boardArr[24] == 'X' && boardArr[30] == 'X' && boardArr[36] == 'X' && boardArr[42] == 'X') {
             winnerMsg.textContent = playerXname.value + ' wins!';
             winnerPopup.style.display = 'block';
+            turnInfo.style.display = 'none';
         } else if (boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'X' && boardArr[3] == 'O' && boardArr[4] == 'O' && boardArr[5] == 'O' && boardArr[6] == 'O' ||
         boardArr[7] == 'O' && boardArr[8] == 'O' && boardArr[9] == 'O' && boardArr[10] == 'O' && boardArr[11] == 'O' && boardArr[12] == 'O' && boardArr[13] == 'O' ||
         boardArr[14] == 'O' && boardArr[15] == 'O' && boardArr[16] == 'O' && boardArr[17] == 'O' && boardArr[18] == 'O' && boardArr[19] == 'O' && boardArr[20] == 'O' ||
@@ -228,9 +233,11 @@ const GameControl = (() => {
         boardArr[6] == 'O' && boardArr[12] == 'O' && boardArr[18] == 'O' && boardArr[24] == 'O' && boardArr[30] == 'O' && boardArr[36] == 'O' && boardArr[42] == 'O') {
             winnerMsg.textContent = playerOname.value + ' wins!';
             winnerPopup.style.display = 'block';
+            turnInfo.style.display = 'none';
         } else if (!boardArr.includes('')) {
             winnerMsg.textContent = 'it\'s a tie!';
             winnerPopup.style.display = 'block';
+            turnInfo.style.display = 'none';
         }
     }
 
@@ -254,6 +261,16 @@ const GameControl = (() => {
         }
         turn = playerX;
         turnInfo.textContent = playerXname.value + '\'s turn';
+    })
+
+    playBtn.addEventListener('click', () => {
+        checkNameForm();
+    })
+
+    playerForm.addEventListener('keydown', (e) => {
+        if (e.key == 'Enter') {
+            checkNameForm();
+        }
     })
 
     return {
@@ -340,3 +357,40 @@ const DisplayControl = (() => {
         adjustBoard
     }
 })();
+
+const audioIconGame = document.querySelector('#sound_icon');
+const audioIconHome = document.querySelector('#sound_home');
+const backsoundAudio = document.querySelector('#backsound');
+const winnerWrapper = document.querySelector('.winner-popup');
+
+audioIconGame.addEventListener('click', () => {
+    if (backsoundAudio.paused) {
+        audioIconGame.src = 'media/speaker.png'
+        audioIconHome.src = 'media/speaker-home.png'
+        backsoundAudio.play();
+    } else {
+        backsoundAudio.pause();
+        audioIconGame.src = 'media/mute.png'
+        audioIconHome.src = 'media/mute-home.png'
+    }
+})
+
+audioIconHome.addEventListener('click', () => {
+    if (backsoundAudio.paused) {
+        audioIconHome.src = 'media/speaker-home.png'
+        audioIconGame.src = 'media/speaker.png'
+        backsoundAudio.play();
+    } else {
+        backsoundAudio.pause();
+        audioIconHome.src = 'media/mute-home.png'
+        audioIconGame.src = 'media/mute.png'
+    }
+})
+
+window.onclick = function(e) {
+    if (e.target == winnerWrapper) {
+        winnerWrapper.style.display = 'none'
+    } else if (e.target == playerForm) {
+        playerForm.style.display = 'none'
+    }
+}
