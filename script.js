@@ -3,6 +3,8 @@ const play5 = document.querySelector('#play5');
 const play7 = document.querySelector('#play7');
 const playerForm = document.querySelector('.form-wrapper');
 const soundIcon = document.querySelector('#sound_icon');
+const winnerWrapper = document.querySelector('.winner-popup');
+const winnerPopup = document.querySelector('.winner-wrapper');
 
 let playMode;
 
@@ -238,6 +240,10 @@ const GameControl = (() => {
     }
 
     const restartGame = () => {
+        if (winnerWrapper.style.display == 'block') {
+            winnerWrapper.style.display = 'none';
+        }
+
         if (playMode == '3x3') {
             GameBoard.resetArr(GameBoard.getboard3x3Arr())
             for (let i = 0; i < (GameBoard.getboard3x3Arr()).length; i++) {
@@ -256,7 +262,7 @@ const GameControl = (() => {
         }
         turn = playerX;
         turnInfo.textContent = playerXname.value + '\'s turn';
-        turnInfo.style.display = 'block';
+        turnInfo.style.display = 'block'
     }
 
     return {
@@ -333,7 +339,6 @@ const DisplayControl = (() => {
                         console.log(GameBoard.getboard7x7Arr());
                     }
                 } else if (winnerMsg.textContent !== '') {
-                    winnerPopup.style.display = 'block'
                     return;
                 }
             })
@@ -353,7 +358,6 @@ const DisplayControl = (() => {
 })();
 
 const playBtn = document.querySelector('#playBtn');
-const winnerPopup = document.querySelector('.winner-popup');
 const restartWin = document.querySelector('#restart-win');
 const homeWin = document.querySelector('#home-winner');
 
@@ -382,7 +386,7 @@ playerForm.addEventListener('keydown', (e) => {
 })
 
 restartWin.addEventListener('click', () => {
-    winnerWrapper.style.display = 'none';
+    winnerPopup.style.display = 'none'
     winnerMsg.textContent = '';
     GameControl.restartGame();
     DisplayControl.startGame();
@@ -419,8 +423,8 @@ homeNo.addEventListener('click', () => {
 })
 
 window.onclick = function(e) {
-    if (e.target == winnerPopup) {
-        winnerPopup.style.display = 'none'
+    if (e.target == winnerWrapper) {
+        winnerWrapper.style.display = 'none'
     } else if (e.target == playerForm) {
         playerForm.style.display = 'none'
     } else if (e.target == resetPopup) {
