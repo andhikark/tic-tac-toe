@@ -311,3 +311,14 @@ button {
     color: var(--color-1);
     border-radius: 10px;
 }
+
+.copyright {
+    color: var(--color-1);
+    text-align: center;
+    margin-top: 10vh;
+    margin-bottom: -10vh;
+}
+
+.copyright h4 {
+    margin: 5px;
+}

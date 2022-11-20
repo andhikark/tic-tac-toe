@@ -2,7 +2,6 @@ const play3 = document.querySelector('#play3');
 const play5 = document.querySelector('#play5');
 const play7 = document.querySelector('#play7');
 const playerForm = document.querySelector('.form-wrapper');
-const backsound = document.querySelector('#backsound');
 const soundIcon = document.querySelector('#sound_icon');
 
 let playMode;
@@ -96,7 +95,6 @@ const GameControl = (() => {
     const playerOname = document.querySelector('#playero');
     const turnInfo = document.querySelector('.turnInfo');
     const winnerMsg = document.querySelector('#winnerMsg');
-    const winnerPopup = document.querySelector('.winner-wrapper');
 
     const playerX = Player(playerXname.value, 'X');
     const playerO = Player(playerOname.value, 'O');
@@ -258,6 +256,7 @@ const GameControl = (() => {
         }
         turn = playerX;
         turnInfo.textContent = playerXname.value + '\'s turn';
+        turnInfo.style.display = 'block';
     }
 
     return {
@@ -333,7 +332,8 @@ const DisplayControl = (() => {
                         GameControl.checkWinner7x7(GameBoard.getboard7x7Arr());
                         console.log(GameBoard.getboard7x7Arr());
                     }
-                } else {
+                } else if (winnerMsg.textContent !== '') {
+                    winnerPopup.style.display = 'block'
                     return;
                 }
             })
@@ -353,7 +353,9 @@ const DisplayControl = (() => {
 })();
 
 const playBtn = document.querySelector('#playBtn');
-const winnerWrapper = document.querySelector('.winner-popup');
+const winnerPopup = document.querySelector('.winner-popup');
+const restartWin = document.querySelector('#restart-win');
+const homeWin = document.querySelector('#home-winner');
 
 const homeBtn = document.querySelector('#home-button');
 const homeYes = document.querySelector('#homeYes');
@@ -365,6 +367,10 @@ const resetBtn = document.querySelector('#reset-board');
 const resetYes = document.querySelector('#restartYes');
 const resetNo = document.querySelector('#restartNo');
 
+const audioIconGame = document.querySelector('#sound_icon');
+const audioIconHome = document.querySelector('#sound_home');
+const backsoundAudio = document.querySelector('#backsound');
+
 playBtn.addEventListener('click', () => {
     GameControl.checkNameForm();
 })
@@ -373,6 +379,17 @@ playerForm.addEventListener('keydown', (e) => {
     if (e.key == 'Enter') {
         GameControl.checkNameForm();
     }
+})
+
+restartWin.addEventListener('click', () => {
+    winnerWrapper.style.display = 'none';
+    winnerMsg.textContent = '';
+    GameControl.restartGame();
+    DisplayControl.startGame();
+})
+
+homeWin.addEventListener('click', () => {
+    window.location.reload();
 })
 
 resetBtn.addEventListener('click', () => {
@@ -402,8 +419,8 @@ homeNo.addEventListener('click', () => {
 })
 
 window.onclick = function(e) {
-    if (e.target == winnerWrapper) {
-        winnerWrapper.style.display = 'none'
+    if (e.target == winnerPopup) {
+        winnerPopup.style.display = 'none'
     } else if (e.target == playerForm) {
         playerForm.style.display = 'none'
     } else if (e.target == resetPopup) {
@@ -412,3 +429,27 @@ window.onclick = function(e) {
         homeWarnWrapper.style.display = 'none'
     }
 }
+
+audioIconGame.addEventListener('click', () => {
+    if (backsoundAudio.paused) {
+        audioIconGame.src = 'media/speaker.png'
+        audioIconHome.src = 'media/speaker-home.png'
+        backsoundAudio.play();
+    } else {
+        backsoundAudio.pause();
+        audioIconGame.src = 'media/mute.png'
+        audioIconHome.src = 'media/mute-home.png'
+    }
+})
+
+audioIconHome.addEventListener('click', () => {
+    if (backsoundAudio.paused) {
+        audioIconHome.src = 'media/speaker-home.png'
+        audioIconGame.src = 'media/speaker.png'
+        backsoundAudio.play();
+    } else {
+        backsoundAudio.pause();
+        audioIconHome.src = 'media/mute-home.png'
+        audioIconGame.src = 'media/mute.png'
+    }
+})
