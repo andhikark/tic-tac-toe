@@ -3,7 +3,6 @@ const play5 = document.querySelector('#play5');
 const play7 = document.querySelector('#play7');
 const playerForm = document.querySelector('.form-wrapper');
 const soundIcon = document.querySelector('#sound_icon');
-const winnerWrapper = document.querySelector('.winner-popup');
 const winnerPopup = document.querySelector('.winner-wrapper');
 
 let playMode;
@@ -240,10 +239,6 @@ const GameControl = (() => {
     }
 
     const restartGame = () => {
-        if (winnerWrapper.style.display == 'block') {
-            winnerWrapper.style.display = 'none';
-        }
-
         if (playMode == '3x3') {
             GameBoard.resetArr(GameBoard.getboard3x3Arr())
             for (let i = 0; i < (GameBoard.getboard3x3Arr()).length; i++) {
@@ -280,6 +275,8 @@ const DisplayControl = (() => {
     const gamepage = document.querySelector('.gamepage-wrapper');
     const homepage = document.querySelector('.homepage-wrapper');
 
+    boardContainer.innerHTML = '';
+
     const displayMark = (idx, mark) => {
         boardArr[idx].innerHTML = mark;
     }
@@ -315,38 +312,46 @@ const DisplayControl = (() => {
         }
     }
 
-    const boardArr = document.getElementsByClassName('board')
+    let boardArr = document.getElementsByClassName('board');
+
+    const clickBoard = () => {
+        for (let i = 0; i < boardArr.length; i++) {
+            boardArr[i].addEventListener('click', () => {
+                if (boardArr[i].innerHTML == '' && playMode == '3x3') {
+                    GameControl.gameFlow(i);
+                    GameControl.checkWinner3x3(GameBoard.getboard3x3Arr());
+                    console.log(GameBoard.getboard3x3Arr());
+                } else if (boardArr[i].innerHTML == '' && playMode == '5x5') {
+                    GameControl.gameFlow(i);
+                    GameControl.checkWinner5x5(GameBoard.getboard5x5Arr());
+                    console.log(GameBoard.getboard5x5Arr());
+                } else if (boardArr[i].innerHTML == '' && playMode == '7x7') {
+                    GameControl.gameFlow(i);
+                    GameControl.checkWinner7x7(GameBoard.getboard7x7Arr());
+                    console.log(GameBoard.getboard7x7Arr());
+                }
+            })
+        }
+    }
 
     const startGame = () => {
         homepage.style.display = 'none';
         playerForm.style.display = 'none';
         gamepage.style.display = 'block';
         createBoard();
-        for (let i = 0; i < boardArr.length; i++) {
-            boardArr[i].addEventListener('click', () => {
-                if (winnerMsg.textContent == '') {
-                    if (boardArr[i].innerHTML == '' && playMode == '3x3') {
-                        GameControl.gameFlow(i);
-                        GameControl.checkWinner3x3(GameBoard.getboard3x3Arr());
-                        console.log(GameBoard.getboard3x3Arr());
-                    } else if (boardArr[i].innerHTML == '' && playMode == '5x5') {
-                        GameControl.gameFlow(i);
-                        GameControl.checkWinner5x5(GameBoard.getboard5x5Arr());
-                        console.log(GameBoard.getboard5x5Arr());
-                    } else if (boardArr[i].innerHTML == '' && playMode == '7x7') {
-                        GameControl.gameFlow(i);
-                        GameControl.checkWinner7x7(GameBoard.getboard7x7Arr());
-                        console.log(GameBoard.getboard7x7Arr());
-                    }
-                } else if (winnerMsg.textContent !== '') {
-                    return;
-                }
-            })
-        }
+        clickBoard();
     }
 
     const backHome = () => {
-        window.location.reload()
+        GameControl.restartGame();
+        playMode = undefined;
+        boardContainer.innerHTML = '';
+        homepage.style.display = 'block';
+        gamepage.style.display = 'none';
+        winnerPopup.style.display = 'none';
+        winnerMsg = '';
+        adjustBoard();
+        clickBoard();
     }
 
     return {
@@ -393,7 +398,7 @@ restartWin.addEventListener('click', () => {
 })
 
 homeWin.addEventListener('click', () => {
-    window.location.reload();
+    DisplayControl.backHome();
 })
 
 resetBtn.addEventListener('click', () => {
@@ -423,9 +428,7 @@ homeNo.addEventListener('click', () => {
 })
 
 window.onclick = function(e) {
-    if (e.target == winnerWrapper) {
-        winnerWrapper.style.display = 'none'
-    } else if (e.target == playerForm) {
+    if (e.target == playerForm) {
         playerForm.style.display = 'none'
     } else if (e.target == resetPopup) {
         resetPopup.style.display = 'none'
