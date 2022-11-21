@@ -286,7 +286,7 @@ const DisplayControl = (() => {
         board.classList.add('board')
         boardContainer.appendChild(board)
         if (playMode == '7x7') {
-            board.style.setProperty("font-size", "25px")
+            board.style.setProperty("font-size", "1.5em")
         }
     }
 
