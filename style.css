@@ -227,6 +227,20 @@ button {
 
 .form-wrapper {
     display: none;
+    width: 100%;
+}
+
+#x {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#closeBtn {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 #reset-board, #home-button {
@@ -271,7 +285,6 @@ button {
     align-items: center;
     flex-direction: column;
     font-size: 30px;
-    border-radius: 10px;
 }
 
 #winnercontent button {
@@ -357,11 +370,29 @@ button {
 
     .reset-popup, 
     .backhome-popup,
-    .winner-popup {
-        width: 15em;
+    .winner-popup,
+    .form-popup {
+        width: 250px;
+    }
+
+    .reset-popup, 
+    .backhome-popup {
+        font-size: 12px;
+    }
+
+    #winnerMsg {
+        font-size: 0.7em;
     }
 
     .board {
         font-size: 2em;
+    }
+
+    #backVid {
+        width: 50em;
+    }
+
+    .gamepage-wrapper {
+        display: none;
     }
 }

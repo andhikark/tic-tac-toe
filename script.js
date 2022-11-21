@@ -274,7 +274,7 @@ const DisplayControl = (() => {
     const boardContainer = document.querySelector('.board-container')
     const gamepage = document.querySelector('.gamepage-wrapper');
     const homepage = document.querySelector('.homepage-wrapper');
-
+    
     boardContainer.innerHTML = '';
 
     const displayMark = (idx, mark) => {
@@ -283,29 +283,30 @@ const DisplayControl = (() => {
 
     const createBoard = () => {
         const board = document.createElement('div');
-        board.classList.add('board')
-        boardContainer.appendChild(board)
+        board.classList.add('board');
+        boardContainer.appendChild(board);
         if (playMode == '7x7') {
             board.style.setProperty("font-size", "1.5em")
         }
     }
 
     const adjustBoard = () => {
+        boardContainer.innerHTML = '';
         if (playMode == '3x3') {
             for (let i = 0; i < 9; i++) {
-                createBoard()
+                createBoard();
             }
             boardContainer.style.setProperty("grid-template-rows", 'repeat(3, 1fr)');
             boardContainer.style.setProperty("grid-template-columns", 'repeat(3, 1fr)');
         } else if (playMode == '5x5') {
             for (let i = 0; i < 25; i++) {
-                createBoard()
+                createBoard();
             }
             boardContainer.style.setProperty("grid-template-rows", 'repeat(5, 1fr)');
             boardContainer.style.setProperty("grid-template-columns", 'repeat(5, 1fr)');
         } else if (playMode == '7x7') {
             for (let i = 0; i < 49; i++) {
-                createBoard()
+                createBoard();
             }
             boardContainer.style.setProperty("grid-template-rows", 'repeat(7, 1fr)');
             boardContainer.style.setProperty("grid-template-columns", 'repeat(7, 1fr)');
@@ -320,16 +321,14 @@ const DisplayControl = (() => {
                 if (boardArr[i].innerHTML == '' && playMode == '3x3') {
                     GameControl.gameFlow(i);
                     GameControl.checkWinner3x3(GameBoard.getboard3x3Arr());
-                    console.log(GameBoard.getboard3x3Arr());
                 } else if (boardArr[i].innerHTML == '' && playMode == '5x5') {
                     GameControl.gameFlow(i);
                     GameControl.checkWinner5x5(GameBoard.getboard5x5Arr());
-                    console.log(GameBoard.getboard5x5Arr());
                 } else if (boardArr[i].innerHTML == '' && playMode == '7x7') {
                     GameControl.gameFlow(i);
                     GameControl.checkWinner7x7(GameBoard.getboard7x7Arr());
-                    console.log(GameBoard.getboard7x7Arr());
                 }
+
             })
         }
     }
@@ -365,6 +364,7 @@ const DisplayControl = (() => {
 const playBtn = document.querySelector('#playBtn');
 const restartWin = document.querySelector('#restart-win');
 const homeWin = document.querySelector('#home-winner');
+const xBtn = document.querySelector('#x')
 
 const homeBtn = document.querySelector('#home-button');
 const homeYes = document.querySelector('#homeYes');
@@ -425,6 +425,10 @@ homeYes.addEventListener('click', () => {
 
 homeNo.addEventListener('click', () => {
     homeWarnWrapper.style.display = 'none'
+})
+
+xBtn.addEventListener('click', () => {
+    playerForm.style.display = 'none';
 })
 
 window.onclick = function(e) {
