@@ -1,9 +1,35 @@
+/* HOMEPAGE ELEMENTS */
 const play3 = document.querySelector('#play3');
 const play5 = document.querySelector('#play5');
 const play7 = document.querySelector('#play7');
 const playerForm = document.querySelector('.form-wrapper');
+const playBtn = document.querySelector('#playBtn');
+const xBtn = document.querySelector('#x')
 const soundIcon = document.querySelector('#sound_icon');
+
+/* POPUPS */
+const homePopup = document.querySelector('.backhome-wrapper');
 const winnerPopup = document.querySelector('.winner-wrapper');
+const resetPopup = document.querySelector('.resetwarn-wrapper');
+
+/* WINNER POPUP ELEMENTS */
+const restartWin = document.querySelector('#restart-win');
+const homeWin = document.querySelector('#home-winner');
+
+/* HOME POPUP ELEMENTS */
+const homeBtn = document.querySelector('#home-button');
+const homeYes = document.querySelector('#homeYes');
+const homeNo = document.querySelector('#homeNo');
+
+/* RESET POPUP ELEMENTS */
+const resetBtn = document.querySelector('#reset-board');
+const resetYes = document.querySelector('#restartYes');
+const resetNo = document.querySelector('#restartNo');
+
+/* AUDIO ELEMENTS */
+const audioIconGame = document.querySelector('#sound_icon');
+const audioIconHome = document.querySelector('#sound_home');
+const backsoundAudio = document.querySelector('#backsound');
 
 let playMode;
 
@@ -170,7 +196,7 @@ const GameControl = (() => {
             winnerMsg.textContent = playerXname.value + ' wins!';
             winnerPopup.style.display = 'block';
             turnInfo.style.display = 'none';
-        } else if (boardArr[0] == 'X' && boardArr[1] == 'X' && boardArr[2] == 'X' && boardArr[3] == 'X' && boardArr[4] == 'X' ||
+        } else if (boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'O' && boardArr[3] == 'O' && boardArr[4] == 'O' ||
         boardArr[5] == 'O' && boardArr[6] == 'O' && boardArr[7] == 'O' && boardArr[8] == 'O' && boardArr[9] == 'O' ||
         boardArr[10] == 'O' && boardArr[11] == 'O' && boardArr[12] == 'O' && boardArr[13] == 'O' && boardArr[14] == 'O' ||
         boardArr[15] == 'O' && boardArr[16] == 'O' && boardArr[17] == 'O' && boardArr[18] == 'O' && boardArr[19] == 'O' ||
@@ -212,7 +238,7 @@ const GameControl = (() => {
             winnerMsg.textContent = playerXname.value + ' wins!';
             winnerPopup.style.display = 'block';
             turnInfo.style.display = 'none';
-        } else if (boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'X' && boardArr[3] == 'O' && boardArr[4] == 'O' && boardArr[5] == 'O' && boardArr[6] == 'O' ||
+        } else if (boardArr[0] == 'O' && boardArr[1] == 'O' && boardArr[2] == 'O' && boardArr[3] == 'O' && boardArr[4] == 'O' && boardArr[5] == 'O' && boardArr[6] == 'O' ||
         boardArr[7] == 'O' && boardArr[8] == 'O' && boardArr[9] == 'O' && boardArr[10] == 'O' && boardArr[11] == 'O' && boardArr[12] == 'O' && boardArr[13] == 'O' ||
         boardArr[14] == 'O' && boardArr[15] == 'O' && boardArr[16] == 'O' && boardArr[17] == 'O' && boardArr[18] == 'O' && boardArr[19] == 'O' && boardArr[20] == 'O' ||
         boardArr[21] == 'O' && boardArr[22] == 'O' && boardArr[23] == 'O' && boardArr[24] == 'O' && boardArr[25] == 'O' && boardArr[26] == 'O' && boardArr[27] == 'O' ||
@@ -361,25 +387,6 @@ const DisplayControl = (() => {
     }
 })();
 
-const playBtn = document.querySelector('#playBtn');
-const restartWin = document.querySelector('#restart-win');
-const homeWin = document.querySelector('#home-winner');
-const xBtn = document.querySelector('#x')
-
-const homeBtn = document.querySelector('#home-button');
-const homeYes = document.querySelector('#homeYes');
-const homeNo = document.querySelector('#homeNo');
-const homeWarnWrapper = document.querySelector('.backhome-wrapper');
-
-const resetPopup = document.querySelector('.resetwarn-wrapper');
-const resetBtn = document.querySelector('#reset-board');
-const resetYes = document.querySelector('#restartYes');
-const resetNo = document.querySelector('#restartNo');
-
-const audioIconGame = document.querySelector('#sound_icon');
-const audioIconHome = document.querySelector('#sound_home');
-const backsoundAudio = document.querySelector('#backsound');
-
 playBtn.addEventListener('click', () => {
     GameControl.checkNameForm();
 })
@@ -415,16 +422,16 @@ resetNo.addEventListener('click', () => {
 })
 
 homeBtn.addEventListener('click', () => {
-    homeWarnWrapper.style.display = 'block';
+    homePopup.style.display = 'block';
 })
 
 homeYes.addEventListener('click', () => {
     DisplayControl.backHome();
-    homeWarnWrapper.style.display = 'none'
+    homePopup.style.display = 'none'
 })
 
 homeNo.addEventListener('click', () => {
-    homeWarnWrapper.style.display = 'none'
+    homePopup.style.display = 'none'
 })
 
 xBtn.addEventListener('click', () => {
@@ -436,8 +443,8 @@ window.onclick = function(e) {
         playerForm.style.display = 'none'
     } else if (e.target == resetPopup) {
         resetPopup.style.display = 'none'
-    } else if (e.target == homeWarnWrapper) {
-        homeWarnWrapper.style.display = 'none'
+    } else if (e.target == homePopup) {
+        homePopup.style.display = 'none'
     }
 }
 
