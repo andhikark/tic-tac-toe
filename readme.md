@@ -1,10 +1,10 @@
 # Tic Tac Toe
-[click here](https://tic-tac-toe-lemonice.netlify.app)
+[click here](https://tic-tac-toe-lemonice.netlify.app) for live preview!
 
 #### Preview
-![preview](media/simplescreenrecorder-2022-11-21_11.42.41.mp4)
+https://user-images.githubusercontent.com/109892159/204536787-d0c8e702-df3a-4d45-9447-80ac396eb1d8.mp4
 
-This is a multi-player Tic Tac Toe game you can play online in your browser. Consists of three game modes: 3 x 3, 5 x 5, 7 x 7. In addition, I added some features such as resetting the game and returning to the home page.
+A multi-player Tic Tac Toe game you can play online in your browser. Consists of three game modes: 3 x 3, 5 x 5, 7 x 7. In addition, I added some features such as resetting the game and returning to the home page.
 
 ## Technologies I Used
 * OS: Linux Ubuntu
